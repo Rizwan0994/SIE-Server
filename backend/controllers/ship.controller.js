@@ -9,6 +9,8 @@ const upload = multer({
   storage: storage,
   limits: { files: 32 }, // Limit to 32 files per request
 });
+
+//createShip controller
 const createShip = async (req, res) => {
   try {
     const { userId } = req.params;
@@ -66,4 +68,23 @@ const createShip = async (req, res) => {
   }
 };
 
-module.exports = { createShip };
+// get ships controller
+const getShipsByUser = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    // Find all ship listings
+    const ships = await ShipModel.find({ userId });
+
+    if (ships.length === 0) {
+      return res.status(404).json({ error: 'No ship listings found for this user' });
+    }
+
+    res.status(200).json(ships);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error fetching ship listings by user' });
+  }
+};
+
+module.exports = { createShip, getShipsByUser };

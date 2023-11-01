@@ -16,13 +16,39 @@ const shipSchema = new mongoose.Schema({
         manufacturer: String,
         model: String,
         vesselName: String,
-        builtIn: String,
-        refitIn: String,
-        length: String,
-        fuelType: String,
-        fuelCapacity: String,
-        fuelConsumption: String,
-        waterCapacity: String,
+        builtIn: {
+            month: Number,
+            year: Number,
+        },
+        refitIn: {
+            month: Number,
+            year: Number,
+        },
+        length: {
+            value: Number,
+            type: String,
+        },
+        fuelType: {
+            type: String,
+        },
+        fuelCapacity: {
+            value: Number,
+            type: String,
+        },
+        fuelConsumption: {
+            value: Number,
+            type: String,
+        },
+        waterCapacity: {
+            value: Number,
+            type: String,
+        },
+        powerCapacity: {
+            value: Number,
+            type: String,
+        },
+        engine: Number,
+        maxCruising: Number,
     },
     //amenities....
     amenities: {
@@ -50,35 +76,50 @@ const shipSchema = new mongoose.Schema({
     //pricing.....
     pricing: {
         charterType: String,
-        basePrice:String,
-        smartPricing:String,
-        seasonalPrice: String,
-        // Discounts:{bookingDuration: [String],earlyBooking:[String],lastMinute:[String] }
-        Discounts: {
-            bookingDuration: [{
-              dayuse: String,
-              weekly: String,
-              twoweeks: String,
-              month: String,
-            }],
-            earlyBooking: [{
-              twomonths: String,
-              fourmonths: String,
-              sixmonths: String,
-              eightmonths: String,
-            }],
-            lastMinute: [{
-              days25: String,
-              days8: String,
-              days15: String,
-              days3: String,
-            }],
+        basePrice: {
+            durationType: {
+              type: String,
+              default: 'Per night', // Initial durationType
+            },
+            price: {
+              type: String,
+              default: '0', // Initial price
+            },
+            currencyType: {
+              type: String,
+              default: 'EUR', // Initial currencyType
+            },
           },
-        additionalCharges:[String],
-        optionalCharges:[String]
+       
     },
+    smartPricing: String,
+    seasonalPrice: String,
+    Discounts: {
+        bookingDuration: [{
+            dayuse: String,
+            weekly: String,
+            twoweeks: String,
+            month: String,
+        }],
+        earlyBooking: [{
+            twomonths: String,
+            fourmonths: String,
+            sixmonths: String,
+            eightmonths: String,
+        }],
+        lastMinute: [{
+            days25: String,
+            days8: String,
+            days15: String,
+            days3: String,
+        }],
+        additionalCharges: [String],
+        optionalCharges: [String]
+    },
+
+
     //calendar.....
-    calendar:{
+    calendar: {
         checkin_from: { type: String, default: '00:00' },
         checkin_to: { type: String, default: '00:00' },
         checkout_regular: String,
@@ -92,33 +133,59 @@ const shipSchema = new mongoose.Schema({
         date_from: { type: Date, default: new Date() },
         date_to: { type: Date, default: new Date() },
         price: {
-          duration: String,
-          amount: { type: Number, default: 0 },
-          currency: { type: String, default: 'EUR' },
+            duration: String,
+            amount: { type: Number, default: 0 },
+            currency: { type: String, default: 'EUR' },
         },
     },
 
     //policy.....
-    policy:{ policyType: String,
-             badWeather: String
-           },
+    policy: {
+        policyType: String,
+        badWeather: String
+    },
     //booking.....
-    bookig:{
-        bookingMethod: String,
-        regulations:[String],
-     },
+    bookingMethod: {
+        type: String,
+    },
+    regulations: {
+        smokingAllowedOnDeck: {
+            type: Boolean,
+            default: false,
+        },
+        smokingAllowedIndoors: {
+            type: Boolean,
+            default: false,
+        },
+        suitableForChildren: {
+            type: Boolean,
+            default: false,
+        },
+        suitableForPets: {
+            type: Boolean,
+            default: false,
+        },
+        suitableForInfants: {
+            type: Boolean,
+            default: false,
+        },
+        eventsPartiesAllowed: {
+            type: Boolean,
+            default: false,
+        },
+    },
     //additionalRegulationBOX.....
-     additionalRegulation:String,
+    additionalRegulation: String,
     //createdBy.....
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true,
-     },
+    },
     //listing Status.....
-    listingStatus:{
+    listingStatus: {
         type: String,
-    
+
     },
 
 }, {

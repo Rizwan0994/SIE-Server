@@ -1,5 +1,6 @@
 const nodemailer = require("nodemailer")
 
+//verification email
 const sendVerificationEmail = async (email, token) => {
   // email configuration
   let transporter = nodemailer.createTransport({
@@ -35,6 +36,7 @@ const sendVerificationEmail = async (email, token) => {
   await transporter.sendMail(mailOptions);
 };
 
+//reset password email
 const sendResetPasswordEmail = async (email,token ) => {
   // email configuration
   let transporter = nodemailer.createTransport({

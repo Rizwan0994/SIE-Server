@@ -11,6 +11,7 @@ const cors = require("cors")
 // requiring file path 👍👍👍
 const ConnectDb = require("./config/Db.connect")
 const UserRouter = require("./routes/users.routes");
+const ShipRouter = require("./routes/ships.Routes");
 
 
 // neccessary middleware 👍👍👍
@@ -26,12 +27,15 @@ app.use(cors({
 // home route 👍👍👍
 
 app.get('/', function (req, res) {
-    res.send("<h1>Welcome backend Home </h1>")
+    res.send("<h1>Sail-it-easy Server is Live </h1>")
 });
 
 
 // All Users Routes 👍👍👍
 app.use("/api/users", UserRouter)
+
+// All Ships Routes 👍👍👍
+app.use("/api/ships", ShipRouter)
 
 
 

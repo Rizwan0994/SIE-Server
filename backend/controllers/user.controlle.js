@@ -48,6 +48,44 @@ const registerUser = async (req, res) => {
     }
 };
 
+/*continue with google and facebook*/
+const ContinueWithGoogleFacebook = async (req, res) => {
+    try {
+        // Extract user details from the request body
+        const {facebookID, googleID, name, email,role,verificationToken } = req.body;
+
+
+        if (!name || !email || !role || !verificationToken) {
+            return res.status(400).send({ message: "User data are required!" });
+        }
+
+        const isEmailExists = await UsersModel.findOne({ email: email });
+        if (isEmailExists) {
+            return res.status(200).send({ message: "Login Successfull!" });
+            
+        }
+        // Create a new user
+        const user = new UsersModel({
+            name,
+            email,
+            role,
+            facebookID,
+            googleID,
+            isVerified: true,
+            password:'null',
+            lname:'null',
+            fname:'null',
+            verificationToken: verificationToken
+        });
+
+        // Save the user to the database
+        await user.save();
+        res.status(201).json({ message: 'Registration successful.' });
+    } catch (error) {
+        res.status(500).json({ message: 'Something went wrong.', error: error.message });
+    }
+};
+
 /*..user login..*/
 const loginUser = async (req, res) => {
     try {
@@ -76,16 +114,16 @@ const loginUser = async (req, res) => {
 
         const token = await jwt.sign({ _id: user._id }, process.env.JSON_WEB_TOKEN_SECRET_KEY, {
             expiresIn: "7d",
-          });
-          
-          res.status(200).json({
+        });
+
+        res.status(200).json({
             token,
             user: {
-              _id: user._id,
-              email: user.email,
-              role: user.role,
+                _id: user._id,
+                email: user.email,
+                role: user.role,
             },
-          });
+        });
 
 
 
@@ -154,15 +192,15 @@ const forgotPassword = async (req, res) => {
         }
         const user = await UsersModel.findOne({ email: email });
         if (!user) {
-            return res.status(400).send({ message: "Sorry! Email not exists" });
+            return res.status(400).send({ message: "We couldn't find an account linked to this email" });
         }
-       const token =jwt.sign({ userId: user._id }, process.env.JSON_WEB_TOKEN_SECRET_KEY, { expiresIn: '5m' });
+        const token = jwt.sign({ userId: user._id }, process.env.JSON_WEB_TOKEN_SECRET_KEY, { expiresIn: '5m' });
         user.resetPasswordToken = token;
         user.resetPasswordExpires = Date.now() + 300000; // 5 minutes
         await user.save();
         await sendResetPasswordEmail(email, token);
         res.status(200).json({ message: 'Please check your email for reset password.' });
-        
+
 
 
     } catch (error) {
@@ -228,5 +266,6 @@ module.exports = {
     verifyEmail,
     loginUser,
     forgotPassword,
-    resetPassword
+    resetPassword,
+    ContinueWithGoogleFacebook
 };

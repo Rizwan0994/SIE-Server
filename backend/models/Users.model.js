@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
     },
     phoneNo: {
         type: Number,
-        required: true,
+        // required: true,
         unique: true
     },
     role: {
@@ -40,7 +40,14 @@ const userSchema = new mongoose.Schema({
     },
     resetPasswordExpires: {
         type: Date,
-    }
+    },
+    googleID: {
+        type: String,
+    },
+    facebookID: {
+        type: String,
+    },
+
 }, {
     versionKey: false
 });
