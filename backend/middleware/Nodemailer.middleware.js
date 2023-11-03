@@ -22,7 +22,7 @@ const sendVerificationEmail = async (email, token) => {
         <p>We have recently received a request for sign up.</p>
         <p>Please verify this email within <strong>5</strong> minutes to sign up successfully.</p>
         <div style="text-align: center;margin-right:30px; margin-top: 20px;">
-          <a href="http://localhost:5000/api/users/verify-email/${token}" style="background-color: #007bff; color: #fff; padding: 10px 15px; text-decoration: none; border-radius: 5px; font-weight: bold;">Verify Email</a>
+          <a href="https://sie-server.onrender.com/api/users/verify-email/${token}" style="background-color: #007bff; color: #fff; padding: 10px 15px; text-decoration: none; border-radius: 5px; font-weight: bold;">Verify Email</a>
         </div>
         <p style="margin-top: 20px;">Note: If you have not made this request, please ignore this email.</p>
         <p style="font-size: 12px; color: #999; text-align: center;">All rights reserved @Octathorn</p>
@@ -55,7 +55,7 @@ const sendResetPasswordEmail = async (email,token ) => {
         <p>We have recently received a request for reset password.</p>
         <p>Please reset your password within <strong>5</strong> minutes.</p>
         <div style="text-align: center;margin-right:30px; margin-top: 20px;">
-          <a href="http://localhost:5000/api/users/reset-password/${token}" style="background-color: #007bff; color: #fff; padding: 10px 15px; text-decoration: none; border-radius: 5px; font-weight: bold;">Reset Password</a>
+          <a href="https://sie-server.onrender.com/api/users/reset-password/${token}" style="background-color: #007bff; color: #fff; padding: 10px 15px; text-decoration: none; border-radius: 5px; font-weight: bold;">Reset Password</a>
         </div>
         <p style="margin-top: 20px;">Note: If you have not made this request, please ignore this email.</p>
         <p style="font-size: 12px; color: #999; text-align: center;">All rights reserved @Octathorn</p>

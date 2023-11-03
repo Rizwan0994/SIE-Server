@@ -19,14 +19,7 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     phoneNo: {
-        type: Number,
-        // required: true,
-        unique: true
-    },
-    role: {
         type: String,
-        enum: ['owner', 'user'],
-        default: 'user'
     },
     isVerified: {
         type: Boolean,

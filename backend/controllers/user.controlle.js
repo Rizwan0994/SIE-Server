@@ -8,9 +8,9 @@ const bcrypt = require('bcryptjs');
 const registerUser = async (req, res) => {
     try {
         // Extract user details from the request body
-        const { fname, lname, email, phoneNo, role, password } = req.body;
+        const { fname, lname, email, phoneNo,  password } = req.body;
         console.log(req.body)
-        if (!fname || !lname || !phoneNo || !email || !role || !password) {
+        if (!fname || !lname || !phoneNo || !email  || !password) {
             return res.status(400).send({ message: "All fields are required!" });
         }
 
@@ -26,7 +26,6 @@ const registerUser = async (req, res) => {
             lname,
             email,
             phoneNo,
-            role,
             password: hashedPassword,
             isVerified: false,
             verificationToken: ''
@@ -52,10 +51,10 @@ const registerUser = async (req, res) => {
 const ContinueWithGoogleFacebook = async (req, res) => {
     try {
         // Extract user details from the request body
-        const {facebookID, googleID, name, email,role,verificationToken } = req.body;
+        const {facebookID, googleID, name, email,verificationToken } = req.body;
 
 
-        if (!name || !email || !role || !verificationToken) {
+        if (!name || !email || !verificationToken) {
             return res.status(400).send({ message: "User data are required!" });
         }
 
@@ -68,7 +67,6 @@ const ContinueWithGoogleFacebook = async (req, res) => {
         const user = new UsersModel({
             name,
             email,
-            role,
             facebookID,
             googleID,
             isVerified: true,
@@ -104,13 +102,7 @@ const loginUser = async (req, res) => {
         if (!isMatch) {
             return res.status(400).send({ message: "Sorry! Invalid credentials" });
         }
-        // if (user.role === 'user') {
-        //     // Redirect the client to the main client dashboard
-        //     res.redirect('/user-dashboard'); 
-        // } else if (user.role === 'owner') {
-        //     // Redirect the owner to the main creator dashboard
-        //     res.redirect('/owner-dashboard'); 
-        // }
+      
 
         const token = await jwt.sign({ _id: user._id }, process.env.JSON_WEB_TOKEN_SECRET_KEY, {
             expiresIn: "7d",
@@ -121,7 +113,6 @@ const loginUser = async (req, res) => {
             user: {
                 _id: user._id,
                 email: user.email,
-                role: user.role,
             },
         });
 

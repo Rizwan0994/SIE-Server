@@ -1,72 +1,109 @@
+
 const cloudinary = require('../config/cloudinary');
 const ShipModel = require('../models/Ships.model');
 const multer = require('multer');
+const fs = require('fs');
+
+
 
 // Set up the temporaray storage for uploaded images
 const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
-const upload = multer({
-  storage: storage,
-  limits: { files: 32 }, // Limit to 32 files per request
-});
-
-//createShip controller
+// createShip controller
 const createShip = async (req, res) => {
   try {
     const { userId } = req.params;
-    const { ...shipData } = req.body;
-    console.log(shipData);
+    const { shipData } = req.body;
 
-    // Use `multer` to handle image uploads
-    upload.array('photos', 32)(req, res, async function (err) {
-      if (err) {
-        return res.status(400).json({ error: 'Error uploading images' });
-      }
+    const parsedShipData = JSON.parse(shipData);
 
-      const photos = req.files && req.files.length > 0 ? req.files.map((file) => file.buffer) : [];
-      if (photos.length === 0) {
-        return res.status(400).json({ error: 'At least one photo is required!' });
-      }
+    console.log("ship data:", parsedShipData);
+ 
+    // Array to store Cloudinary image URLs
+    const imageUrls = [];
 
-      if (photos.length > 32) {
-        return res.status(400).json({ error: 'You can upload a maximum of 32 images.' });
-      }
+    for (const file of req.files) {
+      // Create a temporary file to store the uploaded image
+      const tempFilePath = `./temp-upload-${Date.now()}.png`;
 
-      const uploadedImages = [];
+      // Write the buffer data to the temporary file
+      fs.writeFileSync(tempFilePath, file.buffer);
 
-      // Upload images to Cloudinary
-      await Promise.all(
-        photos.map((photo) =>
-          new Promise((resolve, reject) => {
-            cloudinary.uploader.upload_stream({ resource_type: 'image' }, async (error, result) => {
-              if (error) {
-                console.error(error);
-                reject(error);
-              } else {
-                uploadedImages.push(result.secure_url);
-                resolve();
-              }
-            }).end(photo);
-          })
-        )
-      );
-
-      // Create a new ship model with uploaded image URLs
-      const newShip = new ShipModel({
-        ...shipData,
-        photos: uploadedImages,
-        userId,
+      // Upload the image to Cloudinary
+      const imageUploadResult = await cloudinary.uploader.upload(tempFilePath, {
+        folder: "pictures",
       });
+
+      // Delete the temporary file after uploading to Cloudinary
+      fs.unlinkSync(tempFilePath);
+
+      // Add the Cloudinary URL to the array
+      imageUrls.push(imageUploadResult.secure_url);
+    }
+  console.log("imageUrls:", imageUrls);
+      // Create a new ship model with uploaded image URLs
+      
+      const newShipData = {
+        basics: parsedShipData.basics,
+        features: parsedShipData.features,
+        location: parsedShipData.location,
+        description: parsedShipData.description,
+        pricing: parsedShipData.pricing,
+        calendar: parsedShipData.calendar,
+        policy: parsedShipData.policy,
+        booking: parsedShipData.booking,
+        amenities: parsedShipData.amenities,
+        photos: imageUrls,
+        userId: userId,
+      };
+      const newShip = new ShipModel(newShipData);
 
       // Save the ship data
       await newShip.save();
       res.status(201).json(newShip);
-    });
+   
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Error creating the ship listing' });
   }
 };
+
+
+const getShipsByLocationAndDate = async (req, res) => {
+  try {
+    const { location, dateFrom, dateTo } = req.params;
+console.log("location:", location);
+console.log("dateFrom:", dateFrom);
+console.log("dateTo:", dateTo);
+    // Parse date strings to Date objects
+    const fromDate = new Date(dateFrom);
+    const toDate = new Date(dateTo);
+
+    console.log("fromDate:", fromDate);
+    if (isNaN(fromDate) || isNaN(toDate)) {
+      return res.status(400).json({ error: 'Invalid date format' });
+    }
+    
+    // Find ships that match the location and date range
+    const ships = await ShipModel.find({
+      'location.marina': location,
+      'calendar.date_from': { $lte: toDate },
+      'calendar.date_to': { $gte: fromDate },
+    });
+
+    if (ships.length === 0) {
+      return res.status(404).json({ error: 'No ship listings found for this location and date range' });
+    }
+
+    res.status(200).json(ships);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error fetching ship listings by location and date range' });
+  }
+};
+
+
 
 // get ships controller
 const getShipsByUser = async (req, res) => {
@@ -87,4 +124,20 @@ const getShipsByUser = async (req, res) => {
   }
 };
 
-module.exports = { createShip, getShipsByUser };
+const getShips = async (req, res) => {
+  try {
+   console.log("get ships");
+    const ships = await ShipModel.find();
+    if (ships.length === 0) {
+      return res.status(404).json({ error: 'No ship listings found ' });
+    }
+
+    res.status(200).json(ships);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error fetching' });
+  }
+};
+
+module.exports = { createShip, getShipsByUser,getShipsByLocationAndDate, getShips };
+

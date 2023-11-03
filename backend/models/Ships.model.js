@@ -1,196 +1,104 @@
+
 const mongoose = require('mongoose');
 
 const shipSchema = new mongoose.Schema({
-    //basic info
-    basics: {
-        boatType: String,
-        sleepingGuests: Number,
-        cruisingGuests: Number,
-        cabins: Number,
-        bathrooms: Number,
-        kitchens: Number,
-        beds: Number,
+  basics: {
+    boatType: String,
+    sleepingGuests: Number,
+    cruisingGuests: Number,
+    cabins: Number,
+    bathrooms: Number,
+    kitchens: Number,
+    beds: Number,
+  },
+  features: {
+    manufacturer: String,
+    model: String,
+    vesselName: String,
+    builtIn: [Object],
+    refitIn: [Object],
+    length: [Object],
+    fuelType: [Object],
+    fuelCapacity: [Object],
+    fuelConsumption: [Object],
+    waterCapacity: [Object],
+    powerCapacity: [Object],
+    engine: Number,
+    maxCruising: Number,
+  },
+  description: {
+    listingTitle: String,
+    listingDescription: String,
+  },
+  location: {
+    marina: String,
+    cruisingRange: Number,
     },
-    //features
-    features: {
-        manufacturer: String,
-        model: String,
-        vesselName: String,
-        builtIn: {
-            month: Number,
-            year: Number,
-        },
-        refitIn: {
-            month: Number,
-            year: Number,
-        },
-        length: {
-            value: Number,
-            type: String,
-        },
-        fuelType: {
-            type: String,
-        },
-        fuelCapacity: {
-            value: Number,
-            type: String,
-        },
-        fuelConsumption: {
-            value: Number,
-            type: String,
-        },
-        waterCapacity: {
-            value: Number,
-            type: String,
-        },
-        powerCapacity: {
-            value: Number,
-            type: String,
-        },
-        engine: Number,
-        maxCruising: Number,
-    },
-    //amenities....
-    amenities: {
-        basics: [String],
-        foodAndBeverage: [String],
-        electronics: [String],
-        seaSports: [String],
-        megaYachts: [String],
-        yachtEquipment: [String],
-    },
-    //location.....
-    location: {
-        marina: [String],
-        cruisingRange: String,
-    },
-    //photos.....
-    photos: [String],
-
-    //description.....
-    description: {
-        listingTitle: String,
-        listingDescription: String,
-    },
-
-    //pricing.....
-    pricing: {
-        charterType: String,
-        basePrice: {
-            durationType: {
-              type: String,
-              default: 'Per night', // Initial durationType
-            },
-            price: {
-              type: String,
-              default: '0', // Initial price
-            },
-            currencyType: {
-              type: String,
-              default: 'EUR', // Initial currencyType
-            },
-          },
-       
+  pricing: {
+    charterType: String,
+    basePrice: {
+      durationType: String,
+      price: Number,
+      currencyType: String,
     },
     smartPricing: String,
     seasonalPrice: String,
-    Discounts: {
-        bookingDuration: [{
-            dayuse: String,
-            weekly: String,
-            twoweeks: String,
-            month: String,
-        }],
-        earlyBooking: [{
-            twomonths: String,
-            fourmonths: String,
-            sixmonths: String,
-            eightmonths: String,
-        }],
-        lastMinute: [{
-            days25: String,
-            days8: String,
-            days15: String,
-            days3: String,
-        }],
-        additionalCharges: [String],
-        optionalCharges: [String]
+    discounts: {
+      bookingDuration: [Object],
+      earlyBooking: [Object],
+      lastMinute: [Object],
     },
-
-
-    //calendar.....
-    calendar: {
-        checkin_from: { type: String, default: '00:00' },
-        checkin_to: { type: String, default: '00:00' },
-        checkout_regular: String,
-        checkout_fordayuse: String,
-        minimum_stay_from: String,
-        minimum_stay_to: String,
-        preperation_time: String,
-        booking_window: String,
-        available: Boolean,
-        unavailable: Boolean,
-        date_from: { type: Date, default: new Date() },
-        date_to: { type: Date, default: new Date() },
-        price: {
-            duration: String,
-            amount: { type: Number, default: 0 },
-            currency: { type: String, default: 'EUR' },
-        },
+    additionalCharges: [String],
+    optionalCharges: [String],
+  },
+  calendar: {
+    checkin_from: String,
+    checkin_to: String,
+    checkout_regular: String,
+    checkout_fordayuse: String,
+    minimum_stay_from: String,
+    minimum_stay_to: String,
+    preperation_time: String,
+    booking_window: String,
+    date_from: Date,
+    date_to: Date,
+    price: {
+      duration: String,
+      amount: Number,
+      currency: String,
     },
-
-    //policy.....
-    policy: {
-        policyType: String,
-        badWeather: String
-    },
-    //booking.....
-    bookingMethod: {
-        type: String,
-    },
+  },
+  policy: {
+    policyType: String,
+    badWeather: String,
+  },
+  booking: {
+    bookingMethod: String,
     regulations: {
-        smokingAllowedOnDeck: {
-            type: Boolean,
-            default: false,
-        },
-        smokingAllowedIndoors: {
-            type: Boolean,
-            default: false,
-        },
-        suitableForChildren: {
-            type: Boolean,
-            default: false,
-        },
-        suitableForPets: {
-            type: Boolean,
-            default: false,
-        },
-        suitableForInfants: {
-            type: Boolean,
-            default: false,
-        },
-        eventsPartiesAllowed: {
-            type: Boolean,
-            default: false,
-        },
+      smokingAllowedOnDeck: Boolean,
+      smokingAllowedIndoors: Boolean,
+      suitableForChildren: Boolean,
+      suitableForPets: Boolean,
+      suitableForInfants: Boolean,
+      eventsPartiesAllowed: Boolean,
     },
-    //additionalRegulationBOX.....
-    additionalRegulation: String,
-    //createdBy.....
-    userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true,
-    },
-    //listing Status.....
-    listingStatus: {
-        type: String,
-
-    },
-
-}, {
-    timestamps: true,
+    additionalregulations: String,
+  },
+  amenities: {
+    basics: [String],
+    foodAndBeverage: [String],
+    electronics: [String],
+    Sea_sports: [String],
+    Mega_yaghts: [String],
+    Yaght_equipment: [String],
+  },
+  photos: [String],
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
 });
 
+// Create a model based on the schema
 const ShipModel = mongoose.model('Ships', shipSchema);
 module.exports = ShipModel;
