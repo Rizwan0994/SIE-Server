@@ -24,7 +24,7 @@ function Search() {
 
   const [sliderState, setSliderState] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-  const [ResData, setResData] = useState([]);
+  const [ResData, setResData] = useState([{}]);
   const [formattedStartDate, setFormattedStartDate] = useState(null);
   const [formattedEndDate, setFormattedEndDate] = useState(null);
 
@@ -52,15 +52,13 @@ function Search() {
   //    };
 
   //    const responseData = decodeResponseData(encodedData);
-
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
-    const handleSearchClick = () => {
+    const handleSearchClick = async () => {
       console.log(destination);
       if (destination.trim() === "") {
         alert("Please enter a destination.");
       } else if (startDate && endDate) {
-        // const apiUrl = "http://127.0.0.1:8000/api/boats/availability/";
-
         const formatDate = (date) => {
           const d = new Date(date);
           const day = String(d.getDate()).padStart(2, "0");
@@ -69,25 +67,31 @@ function Search() {
           return `${year}-${month}-${day}`;
         };
 
-        const apiUrl = `http://192.168.18.43:443/api/ships/location/${destination}/from/${formatDate(startDate)}/to/${formatDate(endDate)}`;
+        const apiUrl = `https://sie-server.onrender.com/api/ships/location/${destination}/from/${formatDate(startDate)}/to/${formatDate(endDate)}`;
+
+        
         const params = {
           location: destination,
           from_date: formatDate(startDate),
           to_date: formatDate(endDate),
         };
 
-        axios
-          .get(apiUrl)
+        await  axios
+          .get(apiUrl, { params })
           .then((response) => {
             // Handle the response data as needed
             console.log("Response data:", response.data);
             setResData(response.data);
+            console.log("objectssacascascascascacascsacsac")
             setData(resData);
+            setLoading(false);
+            
           })
           .catch((error) => {
             // Handle any errors that occurred during the request
             console.error("Error:", error);
             alert("Error occurred while fetching data.");
+            setLoading(false);
           });
       } else {
         // Handle case when dates are not selected or invalid input
@@ -97,6 +101,8 @@ function Search() {
 
     handleSearchClick();
   }, []);
+
+  console.log(resData)
 
   const handleSliderChange = (event) => {
     setSliderState(event.target.checked);
@@ -122,7 +128,7 @@ function Search() {
      setResData(sortedData);
    };
 
-  console.log(ResData.location);
+  // console.log(ResData.location);
 
   
     const boatsPerPage = 6;
@@ -207,7 +213,7 @@ function Search() {
 
         <div className="row">
           <div className="col">
-            {sliderState && <Map data={ResData[0].location} />}
+            {/* {sliderState && <Map data={ResData[0].location} />} */}
           </div>
         </div>
         <div className="row">
@@ -236,7 +242,19 @@ function Search() {
             </>
           ) : (
             <div>
+             {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <div>
+          {ResData.length > 0 ? ( // Render only if data is available
+            <div>
               <Boats data={ResData} fromdate={startDate} todate={endDate} />
+            </div>
+          ) : (
+            <p>No data available</p>
+          )}
+        </div>
+      )}
             </div>
           )}
         </div>

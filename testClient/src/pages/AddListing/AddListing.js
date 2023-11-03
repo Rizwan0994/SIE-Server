@@ -16,7 +16,7 @@ import Navbar from "../../Compunents/AddListing/components/BottomNavbar";
 import Header from "../../Compunents/Header/Header";
 import Modal from "../../Compunents/AddListing/components/Model1";
 import { json } from "react-router-dom";
-// import back_mobile_btn from '../../Compunents/AddListing/svgs/'
+import mobile_btn from "../../Compunents/AddListing/svgs/mobilebackbutton.svg";
 
 // import tick from '../'
 
@@ -31,10 +31,10 @@ function MultiStepForm() {
     minHeight: isMobile
       ? "450px"
       : isTablet
-        ? "670px"
-        : isExtended
-          ? "600px"
-          : "550px",
+      ? "670px"
+      : isExtended
+      ? "600px"
+      : "550px",
     minWidth: isMobile ? "435px " : isTablet ? "700px " : "1200px",
   };
   const [currentStep, setCurrentStep] = useState(1);
@@ -42,12 +42,12 @@ function MultiStepForm() {
   const [formData, setFormData] = useState({
     basics: {
       boatType: "",
-      sleepingGuests: 0,
-      cruisingGuests: 0,
-      cabins: 0,
-      bathrooms: 0,
-      kitchens: 0,
-      beds: 0,
+      sleepingGuests: 1,
+      cruisingGuests: 1,
+      cabins: 1,
+      bathrooms: 1,
+      kitchens: 1,
+      beds: 1,
     },
     features: {
       manufacturer: "",
@@ -178,34 +178,31 @@ function MultiStepForm() {
 
   const handleSubmit = async () => {
     const userId = "651fd08158d64d530ad809e9";
-  
-    // Create a FormData object to send both JSON data and images
     const data = new FormData();
     for (let i = 0; i < selectedImages.length; i++) {
-      console.log(selectedImages[i]); 
+      console.log(selectedImages[i]);
       data.append("photos", selectedImages[i]);
     }
-  
+
     data.append("shipData", JSON.stringify(formData));
     console.log("data", selectedImages);
     const config = {
       headers: {
-        'Content-Type': 'multipart/form-data', 
+        "Content-Type": "multipart/form-data",
       },
     };
-  
+
     try {
-      axios.post(`http://192.168.18.43:443/api/ships/${userId}`, data, config)
+      axios
+        .post(`https://sie-server.onrender.com/api/ships/${userId}`, data, config)
         .then((res) => {
-          // Handle the response as needed
-          console.log('Successfully posted', res.data);
+          console.log("Successfully posted", res.data);
         });
     } catch (error) {
       console.error("Error creating ship:", error);
     }
     console.log("Form submitted:", formData);
   };
-  
 
   // ... (other functions and code)
 
@@ -221,6 +218,10 @@ function MultiStepForm() {
     handleCloseModal();
     setCurrentStep(8); // Move to Step 8
   };
+
+
+
+
 
   // Render the appropriate step component based on the current step
   let stepComponent;
@@ -337,24 +338,29 @@ function MultiStepForm() {
 
   return (
     <div style={container}>
-      <Header />
-      <div></div>
+      <Header />{" "}
+      {isMobile && currentStep !== 1 ? (
+        <div style={{ marginTop: "3%", marginLeft: "2%" }}>
+          {" "}
+          <img src={mobile_btn} onClick={handlePreviousStep} alt="" />
+        </div>
+      ) : (
+        <></>
+      )}
       <div>{stepComponent}</div>
-
       <Navbar
         currentStep={currentStep}
         btntext={
           currentStep === 1
             ? "Start Here"
             : currentStep === 11
-              ? "Save and Publish"
-              : "Continue"
+            ? "Save and Publish"
+            : "Continue"
         }
         onPreviousStep={handlePreviousStep}
         onSubmit={handleSubmit}
         onContinue={currentStep === 7 ? handleShowModal : handleNextStep}
       />
-
       <Modal
         showModal={showModal}
         handleCloseModal={handleCloseModal}

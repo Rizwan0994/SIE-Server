@@ -164,17 +164,41 @@
 //     </div>
 //     <Footer />
 
-import React from "react";
+import React, { useState } from "react";
+import axios from 'axios';
+import { useAlert } from "react-alert";
 import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
 import "react-phone-number-input/style.css";
 
 
 export default function ConformEmail() {
+  const alert = useAlert();
+
+
   const ResendMail = () => {
+
     console.log("resending mail");
   };
   const Email = "zuzair00@gmail.com";
   const paraText = `Please click on the link we sent to <span style="color: #00BFFF">${Email}</span> to verify your email and you are ready to book your next adventure!`;
+
+
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const email = e.target.elements.email.value;
+
+    try {
+      const response = await axios.post('https://sie-server.onrender.com/api/users/forgot-password', { email });
+      console.log('Reset link sent:', response.data);
+      alert.success(response.data.message);
+    } catch (error) {
+      console.error('Error sending reset link:', error);
+      alert.error(error.response.data.message)
+    }
+  };
+
 
   return (
     <div>
@@ -211,12 +235,9 @@ export default function ConformEmail() {
                       Enter the email address linked with your account and we
                       will send you a secure link to reset your password
                     </p>
-                    <Form>
-                      <Form.Group className="mb-3" controlId="Name">
-                        {/* <Form.Label className="text-center">
-                          Name
-                        </Form.Label> */}
-                        <Form.Control type="text" placeholder="Email" />
+                      <Form onSubmit={handleSubmit}>
+                    <Form.Group className="mb-3" controlId="email">
+                        <Form.Control type="email" name="email" placeholder="Email" />
                       </Form.Group>
                       <Button
                         style={{

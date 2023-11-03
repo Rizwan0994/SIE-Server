@@ -4,9 +4,7 @@ import CardComponent from "../components/step10Card";
 import step9 from "../svgs/step9.svg";
 import Step9mb from "../svgs/step9mb.svg";
 
-const container = {
-  height: "85vh",
-};
+
 
 export default function Step10({ formData, setFormData }) {
   const isMobile = useMediaQuery({ maxWidth: 576 });
@@ -18,7 +16,9 @@ export default function Step10({ formData, setFormData }) {
   const isXL = useMediaQuery({ minWidth: 990, maxWidth: 1230 });
 
   const [selectedPolicy, setSelectedPolicy] = useState('');
-
+  const container ={
+    height: isMobile?"":isTablet?"":"86vh",
+  }
   console.log(formData)
 
   const labelStyle = {

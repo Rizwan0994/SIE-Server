@@ -40,34 +40,35 @@ console.log(fromdate + " sadasas  " + todate);
     }
   };
 
+
   // get_fav
   let accessToken = localStorage.getItem("accessToken");
-  useEffect(() => {
-    const fetchFavoriteStatus = async () => {
-      try {
-        const response = await axios.get(
-          "http://127.0.0.1:8000/api/boats/getfavorites/",
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          }
-        );
+  // useEffect(() => {
+  //   const fetchFavoriteStatus = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         "http://127.0.0.1:8000/api/boats/getfavorites/",
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${accessToken}`,
+  //           },
+  //         }
+  //       );
 
-        const updatedFavorites = response.data.map((fav) => ({
-          boatid: fav.boat,
-          fav: fav.fav,
-        }));
+  //       const updatedFavorites = response.data.map((fav) => ({
+  //         boatid: fav.boat,
+  //         fav: fav.fav,
+  //       }));
 
-        setFavorites(updatedFavorites);
-        console.log(updatedFavorites);
-      } catch (error) {
-        console.error("Error fetching favorite status:", error);
-      }
-    };
+  //       setFavorites(updatedFavorites);
+  //       console.log(updatedFavorites);
+  //     } catch (error) {
+  //       console.error("Error fetching favorite status:", error);
+  //     }
+  //   };
 
-    fetchFavoriteStatus();
-  }, []);
+  //   fetchFavoriteStatus();
+  // }, []);
 
   //get fav
   const handleFavoriteToggle = async (boatId) => {
@@ -105,6 +106,10 @@ console.log(fromdate + " sadasas  " + todate);
     }
   };
 
+
+  console.log(data[0])
+
+
   return (
     <Container style={containerStyle}>
       <div className="p-3 m-2">
@@ -125,7 +130,7 @@ console.log(fromdate + " sadasas  " + todate);
                   <Carousel.Item>
                     <img
                       style={{ height: "300px" }}
-                      src={boat.images[0].image}
+                      src={boat.photos[0]}
                       className="d-block w-100"
                       alt={`Image ${index + 1}`}
                     />
@@ -133,7 +138,7 @@ console.log(fromdate + " sadasas  " + todate);
                   <Carousel.Item>
                     <img
                       style={{ height: "300px" }}
-                      src={boat.images[1].image}
+                      src={boat.photos[1]}
                       className="d-block w-100"
                       alt={`Image ${index + 2}`}
                     />
@@ -141,7 +146,7 @@ console.log(fromdate + " sadasas  " + todate);
                   <Carousel.Item>
                     <img
                       style={{ height: "300px" }}
-                      src={boat.images[2].image}
+                      src={boat.photos[2]}
                       className="d-block w-100"
                       alt={`Image ${index + 3}`}
                     />
@@ -149,7 +154,7 @@ console.log(fromdate + " sadasas  " + todate);
                   <Carousel.Item>
                     <img
                       style={{ height: "300px" }}
-                      src={boat.images[3].image}
+                      src={boat.photos[3]}
                       className="d-block w-100"
                       alt={`Image ${index + 3}`}
                     />
@@ -157,7 +162,7 @@ console.log(fromdate + " sadasas  " + todate);
                   <Carousel.Item>
                     <img
                       style={{ height: "300px" }}
-                      src={boat.images[4].image}
+                      src={boat.photos[4]}
                       className="d-block w-100"
                       alt={`Image ${index + 3}`}
                     />
@@ -189,7 +194,7 @@ console.log(fromdate + " sadasas  " + todate);
                     style={{ cursor: "pointer" }}
                     onClick={() => handleCard(boat)}
                   >
-                    <p className="card-text">{boat.typeOfUse}, Pontoons</p>
+                    <p className="card-text">{boat.basics.boatType}, Pontoons</p>
                     <p className="card-text">
                       <FaStar
                         style={{
@@ -204,7 +209,7 @@ console.log(fromdate + " sadasas  " + todate);
                     </p>
                   </div>
                   <h5 className="card-title">Boat</h5>
-                  <p className="card-text"> {boat.location} , PAROS ,GREECE</p>
+                  {/* <p className="card-text"> {boat.location} , PAROS ,GREECE</p> */}
 
                   <div className="d-flex justify-content-start">
                     <p className="card-text">

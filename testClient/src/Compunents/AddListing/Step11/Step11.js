@@ -5,9 +5,7 @@ import step9 from "../svgs/step9.svg";
 import Step9mb from "../svgs/step9mb.svg";
 import Step11Custom from "../components/step11ButtonDiv";
 import Form from "react-bootstrap/Form";
-const container = {
-  height: "85vh",
-};
+
 
 export default function Step11({ formData, setFormData }) {
   const isMobile = useMediaQuery({ maxWidth: 576 });
@@ -17,7 +15,9 @@ export default function Step11({ formData, setFormData }) {
   const islaptop_isTablet = useMediaQuery({ minWidth: 577, maxWidth: 990 });
   const isDesktop = useMediaQuery({ minWidth: 990, maxWidth: 1230 });
   const isXL = useMediaQuery({ minWidth: 990 });
-
+  const container ={
+    height: isMobile?"":isTablet?"":"86vh",
+  }
   const labelStyle = {
     fontSize: "18px",
     fontWeight: "600",

@@ -12,7 +12,7 @@ export default function Step6({ formData, setFormData ,selectedImages,setSelecte
   const islaptop_isTablet = useMediaQuery({ minWidth: 577, maxWidth: 990 });
   const isDesktop = useMediaQuery({ minWidth: 990 });
   const container = {
-    height: "85vh",
+    height: isMobile?"":isTablet?"":"86vh",
     padding: isMobile ? "5%" : isTablet ? "3%" : "",
   };
   const HeadingStyle = {

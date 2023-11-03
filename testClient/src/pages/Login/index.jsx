@@ -44,7 +44,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = "http://127.0.0.1:8000/api/login/";
+      const url = "https://sie-server.onrender.com/api/users/login";
       const response = await axios.post(url, data);
       const { refresh, access, user_id, user_type, username, profile_picture } =
         response.data;
@@ -177,7 +177,7 @@ const Login = () => {
                 <hr />
                 <div className="mb-3 mt-md-4" style={{ padding: "5% 8%" }}>
                   <h2
-                    className="fw-bold mb-4 text-uppercase text-center"
+                    className="fw-bold mb-4  text-center"
                     style={{
                       fontWeight: "700",
                       fontFamily: "Playfair Display",

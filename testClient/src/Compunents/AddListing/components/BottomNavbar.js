@@ -41,7 +41,7 @@ const isTablet = useMediaQuery({ minWidth: 577, maxWidth: 768 });
     
         }}
       >
-        {currentStep !== 1 ?(<BackButton onPreviousStep={onPreviousStep} btntext={"Back"} />):(<></>)}
+        {isMobile ? (<></>):(<> {currentStep !== 1 ?(<BackButton onPreviousStep={onPreviousStep} btntext={"Back"} />):(<></>)} </>)} 
         <Button ButtonClick={handleButtonClick} btntext={currentStep === 7 ? "Save and Publish" : btntext} />
       </nav>
 

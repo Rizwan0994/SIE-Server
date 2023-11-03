@@ -61,7 +61,9 @@ const handleDestinationChange = (newDestination) => {
 
       alert("Please enter a destination.");
     } else if (startDate && endDate) {
-
+//
+//http://localhost:8000/api/boats/availability/
+/// location/${location}/from/${dateFrom}/to/${dateTo
      
       const formatDate = (date) => {
         const d = new Date(date);
@@ -70,12 +72,18 @@ const handleDestinationChange = (newDestination) => {
         const year = d.getFullYear();
         return `${year}-${month}-${day}`;
       };
-      const apiUri = `http://localhost:443/api/ships/location/${destination}/from/${formatDate(startDate)}/to/${formatDate(endDate)}`;
-   
 
-      // Make the GET request using Axios
+      const apiUrl = `https://sie-server.onrender.com/api/ships/location/${destination}/from/${formatDate(startDate)}/to/${formatDate(endDate)}`;
+
+      const params = {
+        location: destination,
+        from_date: formatDate(startDate),
+        to_date: formatDate(endDate),
+      };
+
+      // Make the GET request using Axios  ,{params}
       axios
-        .get(apiUri)
+        .get(apiUrl)
         .then((response) => {
           // Handle the response data as needed
           console.log("Response data:", response.data);
@@ -83,20 +91,8 @@ const handleDestinationChange = (newDestination) => {
           navigateToSearchPage(startDate, endDate, destination);
         })
         .catch((error) => {
-    
-          if (error.response) {
-            // The request was made and the server responded with a status code
-            // that falls out of the range of 2xx
-            console.error("Response data:", error.response.data);
-            console.error("Response status:", error.response.status);
-            console.error("Response headers:", error.response.headers);
-          } else if (error.request) {
-            // The request was made but no response was received
-            console.error("No response received:", error.request);
-          } else {
-            // Something happened in setting up the request that triggered an Error
-            console.error("Error setting up the request:", error.message);
-          }
+          // Handle any errors that occurred during the request
+          console.error("Error:", error);
           alert("Error occurred while fetching data.");
         });
     } else {

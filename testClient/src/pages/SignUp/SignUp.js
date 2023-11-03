@@ -1,5 +1,6 @@
-import React from "react";
-import { useState } from "react";
+import axios from "axios";
+import { useAlert } from "react-alert";
+import React, { useState } from "react";
 import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import PhoneInput from "react-phone-number-input";
@@ -7,10 +8,42 @@ import "react-phone-number-input/style.css";
 import MuiPhoneNumber from "material-ui-phone-number";
 
 export default function SignUp() {
-  const [value, setValue] = useState();
+  const alert = useAlert();
+  const [formData, setFormData] = useState({
+    fname: "",
+    lname: "",
+    email: "",
+    password: "",
+    phoneNo: "",
+  });
 
-  const handleOnChange = (value) => {
-    console.log(value);
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handlePhoneNumberChange = (value) => {
+    setFormData({ ...formData, phoneNo: value });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Here you would perform validation on form data before sending it to the server
+
+    axios
+      .post("https://sie-server.onrender.com/api/users/register", formData)
+      .then((response) => {
+        // Handle success
+        console.log("User registered:", response.data.message);
+        alert.success(response.data.message);
+        // Perform any additional actions (redirect, state update, etc.) upon successful registration
+      })
+      .catch((error) => {
+        // Handle error
+        console.error("Registration failed:", error);
+        alert.error(error.response.data.message);
+        // Perform error handling or display an error message to the user
+      });
   };
 
   return (
@@ -35,50 +68,52 @@ export default function SignUp() {
                 <hr />
                 <div className="mb-3 mt-md-4" style={{ padding: "5% 8%" }}>
                   <div className="mb-3">
-                    <Form>
-                      <Form.Group className="mb-3" controlId="Name">
-                        {/* <Form.Label className="text-center">
-                          Name
-                        </Form.Label> */}
-                        <Form.Control type="text" placeholder="Enter Name" />
+                    <Form onSubmit={handleSubmit}>
+                      <Form.Group className="mb-3" controlId="fname">
+                        <Form.Control
+                          name="fname"
+                          type="text"
+                          placeholder="First Name"
+                          onChange={handleInputChange}
+                        />
                       </Form.Group>
 
-                      <Form.Group className="mb-3" controlId="formBasicEmail">
-                        {/* <Form.Label className="text-center">
-                          Email address
-                        </Form.Label> */}
-                        <Form.Control type="email" placeholder="Enter email" />
+                      <Form.Group className="mb-3" controlId="lname">
+                        <Form.Control
+                          name="lname"
+                          type="text"
+                          placeholder="Last Name"
+                          onChange={handleInputChange}
+                        />
                       </Form.Group>
 
-                      <Form.Group
-                        className="mb-3"
-                        controlId="formBasicPassword"
-                      >
-                        {/* <Form.Label>Password</Form.Label> */}
-                        <Form.Control type="password" placeholder="Password" />
+                      <Form.Group className="mb-3" controlId="email">
+                        <Form.Control
+                          name="email"
+                          type="email"
+                          placeholder="Email"
+                          onChange={handleInputChange}
+                        />
                       </Form.Group>
-                      <Form.Group
-                        className="mb-3"
-                        controlId="formBasicPassword"
-                      >
-                        {/* <Form.Label>Confirm Password</Form.Label> */}
-                        <Form.Control type="password" placeholder="Password" />
+
+                      <Form.Group className="mb-3" controlId="password">
+                        <Form.Control
+                          name="password"
+                          type="password"
+                          placeholder="Password"
+                          onChange={handleInputChange}
+                        />
                       </Form.Group>
-                      {/* <PhoneInput
-      placeholder="Enter phone number"
-      value={value}
-      onChange={setValue}/> */}
+
+                      {/* Replacing the Phone Number input with MuiPhoneNumber */}
                       <MuiPhoneNumber
                         className="rounded"
                         style={{ width: "-webkit-fill-available" }}
                         defaultCountry={"us"}
-                        onChange={handleOnChange}
+                        onChange={handlePhoneNumberChange}
                       />
 
-                      <Form.Group
-                        className="mb-3"
-                        controlId="formBasicCheckbox"
-                      ></Form.Group>
+                     
                       <div className="d-grid">
                         <p
                           style={{ fontFamily: "Open Sans", fontWeight: "400" }}

@@ -10,10 +10,6 @@ import { DateRange } from "react-date-range";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 
-const container = {
-  height: "85vh",
-};
-
 const HeadingStyle = {
   fontSize: "20px",
   fontWeight: "600",
@@ -33,7 +29,11 @@ export default function Step9({ formData, setFormData }) {
   const isLaptop = useMediaQuery({ minWidth: 768, maxWidth: 990 });
   const islaptop_isTablet = useMediaQuery({ minWidth: 577, maxWidth: 990 });
   const isDesktop = useMediaQuery({ minWidth: 990, maxWidth: 1230 });
-  const isXL = useMediaQuery({ minWidth: 990, maxWidth: 1230 });
+  const isXL = useMediaQuery({ minWidth: 990});
+
+  const container = {
+    height:isXL?"86vh":"",
+  };
 
   const labelStyle = {
     fontSize: "18px",
@@ -48,52 +48,38 @@ export default function Step9({ formData, setFormData }) {
     marginRight: isTablet ? "3%" : "",
   };
 
-  const checkinStyle = { marginRight: "4%", width: isMobile ? "50%" : "" };
-  const timeContStyle = {
-    // display: "flex",
-    borderRadius: "8px",
-    alignItems: "center",
-    border: "rgb(186 185 185) solid 1px",
-    width: isMobile ? "" : isTablet ? "" : "",
-    padding: isMobile ? "2%" : isTablet ? "2%" : "4%",
-    marginBottom: isMobile ? "2%" : "",
-  };
-  const preperationContStyle = {
-    // display: "flex",
-    borderRadius: "8px",
-    alignItems: "center",
-    border: "rgb(186 185 185) solid 1px",
-    width: isMobile ? "" : isTablet ? "" : "",
-    padding: "2%",
-    marginBottom: isMobile ? "2%" : "",
-  };
-
-  const timeStyle = {
-    // display: "flex",
-    borderRadius: "8px",
-    alignItems: "center",
-    border: "rgb(186 185 185) solid 1px",
-    width: isMobile ? "" : isTablet ? "" : "",
-    padding: isMobile ? "2%" : isTablet ? "2%" : "6%",
-    marginBottom: isMobile ? "2%" : "",
-  };
-
-  const hrStyle = {
-    backgroundColor: "#CCCCCC",
-    marginLeft: isMobile ? "" : "10%",
-    margin: isMobile ? "5% 2%" : "5% 0%",
-    width: isMobile ? "96%" : "",
-  };
-  const numdivStyle = {
+  const priceDivStyle2 = {
+    width: isMobile ? "" : "160px",
+    height: isMobile ? "" : "45px",
+    fontSize: "10px",
+    border: "rgb(186 185 185) solid 0.5px",
     display: "flex",
-    borderRadius: "8px",
-    alignItems: "center",
-    border: "rgb(186 185 185) solid 1px",
-    width: isMobile ? "" : "fit-content",
-    padding: isMobile ? "2% 4%" : isTablet ? "2% 4%" : "2%",
-    color: "",
+    borderRadius: "5px",
+    padding: isMobile ? "3%" : "2%",
+    alignItems: isMobile ? "" : "center",
+    marginBottom: isMobile ? "2%" : "",
+    
     marginRight: isMobile ? "3%" : "4%",
   };
+
+  
+  const priceDivStyle = {
+    width: isMobile ? "" : "105px",
+    height: isMobile ? "" : "45px",
+    fontSize: "10px",
+    border: "rgb(186 185 185) solid 0.5px",
+    display: "flex",
+    borderRadius: "5px",
+    padding: isMobile ? "3%" : "2%",
+    alignItems: isMobile ? "" : "center",
+    marginBottom: isMobile ? "2%" : "",
+    
+    marginRight: isMobile ? "3%" : "4%",
+  };
+
+
+
+
   const numberContStyle = {
     width: isMobile ? "100%" : "60px",
     borderStyle: "none",
@@ -105,16 +91,60 @@ export default function Step9({ formData, setFormData }) {
     margin: "0% 2%",
   };
 
-  const dateContStyle = {
-    // display: "flex",
-    marginRight: isMobile ? "4%" : isTablet ? "" : "4%",
-    borderRadius: "8px",
-    alignItems: "center",
-    border: "rgb(186 185 185) solid 1px",
-    width: isMobile ? "" : isTablet ? "" : "",
-    padding: isMobile ? "7%" : isTablet ? "8%" : "8%",
+  
+
+
+
+  const checkinInputStyle = {
+    width: isMobile ? "" : "90px",
+    height: isMobile ? "" : "45px",
+    fontSize: "10px",
+
+    border: "rgb(186 185 185) solid 0.5px",
+    display: "flex",
+    borderRadius: "5px",
+    padding: isMobile ? "3%" : "2%",
+    alignItems: isMobile ? "" : "center",
     marginBottom: isMobile ? "2%" : "",
+    fontSize: "10px",
+    alignItems: "center",
+    marginRight: "2%",
   };
+
+  const PrepTimeStyle = {
+    // width: isMobile ? "" : "220px",
+    height: isMobile ? "" : "45px",
+    fontSize: "10px",
+
+    border: "rgb(186 185 185) solid 0.5px",
+    display: "flex",
+    borderRadius: "5px",
+    padding: isMobile ? "3%" : "2%",
+    alignItems: isMobile ? "" : "center",
+    marginBottom: isMobile ? "2%" : "",
+    fontSize: "10px",
+    alignItems: "center",
+    marginRight: "2%",
+  };
+
+  const dateDivStyle = {
+    width: isMobile ? "" : "118px",
+    height: isMobile ? "" : "45px",
+    fontSize: "10px",
+  textAlign:"center",
+    border: "rgb(186 185 185) solid 0.5px",
+    display: "flex",
+    borderRadius: "5px",
+    padding: isMobile ? "3%" : "2%",
+    alignItems: isMobile ? "" : "center",
+    marginBottom: isMobile ? "2%" : "",
+    fontSize:"10px"
+  };
+
+
+
+
+  const checkinStyle = { marginRight: "4%", width: isMobile ? "50%" : "" };
 
   const [selectedTime, setSelectedTime] = useState("");
   const [selectedValue, setSelectedValue] = useState("10%");
@@ -251,19 +281,19 @@ export default function Step9({ formData, setFormData }) {
     // className={"container-fluid"}
     <div className="container-fluid" style={container}>
       <div
-        className="row justify-content-center"
+        className="row justify-content-center "
         style={{ marginBottom: "2%" }}
       >
         <div
-          className="col-12 col-sm-11 col-md-10 col-lg-9"
+          className="col-12 col-sm-11 col-md-10 col-lg-9 col-xl-8"
           style={{ marginTop: "3%" }}
         >
           <img src={isMobile ? Step8mb : step8} width="100%" alt="" />
         </div>
       </div>
       {/* row 1 col 1  */}
-      <div className="row justify-content-center d-sm-flex">
-        <div className=" col-12 col-sm-4 col-xl-3">
+      <div className="row justify-content-center justify-content-xl-evenly d-sm-flex">
+        <div className=" col-12 col-sm-4 col-xl-2">
           <h4 className="pb-2" style={HeadingStyle}>
             Check in
           </h4>
@@ -271,9 +301,9 @@ export default function Step9({ formData, setFormData }) {
           <div className="d-flex">
             <div style={checkinStyle}>
               <span style={{}}> From</span>
-              <div className="d-grid" style={timeContStyle}>
+              <div className="d-grid" style={checkinInputStyle}>
                 <input
-                  style={{ borderStyle: "none" }}
+                  style={{ borderStyle: "none", fontSize: "10px",alignItems:"end" }}
                   class="form-control"
                   id="kt_timepicker_1"
                   readonly
@@ -286,11 +316,12 @@ export default function Step9({ formData, setFormData }) {
               </div>
             </div>
 
+
             <div style={{ width: isMobile ? "50%" : "" }}>
               <span style={{}}>To</span>
-              <div className="d-grid" style={timeContStyle}>
+              <div className="d-grid" style={checkinInputStyle}>
                 <input
-                  style={{ borderStyle: "none" }}
+                  style={{ borderStyle: "none", fontSize: "10px",alignItems:"end" }}
                   class="form-control"
                   id="kt_timepicker_1"
                   readonly
@@ -310,12 +341,12 @@ export default function Step9({ formData, setFormData }) {
           </h4>
 
           <div className="d-flex">
-            <div style={{ width: "50%", marginRight: "4%" }}>
+            <div style={{ width: "", marginRight: "4%" }}>
               <span style={{}}> Regular</span>
-              <div className="d-grid" style={timeContStyle}>
+              <div className="d-grid" style={checkinInputStyle}>
                 <select
                   className="form-select"
-                  style={{ borderStyle: "none" }}
+                  style={{ borderStyle: "none" , fontSize: "10px", }}
                   aria-label="Default select example"
                   onChange={(e) =>
                     handleSelectChange(e.target.value, "checkout_regular")
@@ -329,10 +360,10 @@ export default function Step9({ formData, setFormData }) {
 
             <div style={{ width: isMobile ? "50%" : "" }}>
               <span style={{}}>For day use</span>
-              <div className="d-grid" style={timeStyle}>
+              <div className="d-grid" style={checkinInputStyle}>
                 <select
                   className="form-select"
-                  style={{ borderStyle: "none" }}
+                  style={{ borderStyle: "none" , fontSize: "10px",}}
                   aria-label="Default select example"
                   onChange={(e) =>
                     handleSelectChange(e.target.value, "checkout_fordayuse")
@@ -353,10 +384,10 @@ export default function Step9({ formData, setFormData }) {
           <div className="d-flex">
             <div style={checkinStyle}>
               <span style={{}}> From</span>
-              <div className="d-grid" style={timeContStyle}>
+              <div className="d-grid" style={checkinInputStyle}>
                 <select
                   className="form-select"
-                  style={{ borderStyle: "none" }}
+                  style={{ borderStyle: "none", fontSize: "10px", }}
                   aria-label="Default select example"
                   onChange={(e) =>
                     handleSelectChange(e.target.value, "minimum_stay_from")
@@ -370,10 +401,10 @@ export default function Step9({ formData, setFormData }) {
 
             <div style={{ width: isMobile ? "50%" : "" }}>
               <span style={{}}>To</span>
-              <div className="d-grid" style={timeContStyle}>
+              <div className="d-grid" style={checkinInputStyle}>
                 <select
                   className="form-select"
-                  style={{ borderStyle: "none" }}
+                  style={{ borderStyle: "none", fontSize: "10px", }}
                   aria-label="Default select example"
                   onChange={(e) =>
                     handleSelectChange(e.target.value, "minimum_stay_to")
@@ -391,7 +422,7 @@ export default function Step9({ formData, setFormData }) {
           <h4 className="pb-2" style={HeadingStyle}>
             Preperation time
           </h4>
-          <div className="" style={preperationContStyle}>
+          <div className="" style={PrepTimeStyle}>
             <select
               className="form-select"
               style={{ borderStyle: "none" }}
@@ -409,7 +440,7 @@ export default function Step9({ formData, setFormData }) {
           <h4 className="pb-2" style={HeadingStyle}>
             Booking window
           </h4>
-          <div className="" style={preperationContStyle}>
+          <div className="" style={PrepTimeStyle}>
             <select
               className="form-select"
               style={{ borderStyle: "none" }}
@@ -425,7 +456,7 @@ export default function Step9({ formData, setFormData }) {
         </div>
         {/* align-items-center */}
         <div className="col-sm-7 d-lg-flex justify-content-xl-evenly">
-          <div className=" col-sm-12 col-lg-6   ">
+          <div className=" col-sm-12 col-lg-5   ">
             <p style={SetStyle}>
               Set your availability by selecting the days you want to modify
             </p>
@@ -451,7 +482,7 @@ export default function Step9({ formData, setFormData }) {
           <div className="col-lg-6" style={{ marginTop: "7%" }}>
             <div className="d-grid">
               {isMobile ? (
-                <div className="d-flex">
+                <div className="d-flex mt-2">
                   <label style={labelStyle}>Available</label>
                   <input
                     style={{ marginLeft: "auto", marginRight: "2%" }}
@@ -476,7 +507,7 @@ export default function Step9({ formData, setFormData }) {
               )}
 
               {isMobile ? (
-                <div className="d-flex">
+                <div className="d-flex mt-2">
                   <label style={labelStyle}>Unavailable</label>
                   <input
                     style={{ marginLeft: "auto", marginRight: "2%" }}
@@ -488,7 +519,7 @@ export default function Step9({ formData, setFormData }) {
                   />
                 </div>
               ) : (
-                <div>
+                <div  className=" mt-3 mb-3">
                   <input
                     type="radio"
                     name="options"
@@ -503,12 +534,12 @@ export default function Step9({ formData, setFormData }) {
               {/* <p>Selected Option: {selectedOption}</p> */}
 
               <div
-                className="d-flex"
+                className="d-flex  mb-3"
                 style={{ marginTop: isMobile ? "4%" : isTablet ? "4%" : "" }}
               >
                 <div style={FromDateStyle}>
                   <span style={{}}> From</span>
-                  <div className="d-grid" style={dateContStyle}>
+                  <div className="d-grid" style={dateDivStyle}>
                     {dateRange[0].startDate ? (
                       <>{formatSelectedDate(dateRange[0].startDate)}</>
                     ) : (
@@ -523,7 +554,7 @@ export default function Step9({ formData, setFormData }) {
                   }}
                 >
                   <span style={{ width: isMobile ? "50%" : "" }}>To</span>
-                  <div className="d-grid" style={dateContStyle}>
+                  <div className="d-grid" style={dateDivStyle}>
                     {dateRange[0].endDate ? (
                       <>{formatSelectedDate(dateRange[0].endDate)}</>
                     ) : (
@@ -535,11 +566,12 @@ export default function Step9({ formData, setFormData }) {
 
               <span style={{ marginTop: isMobile ? "4%" : "" }}> Price </span>
               <div className="d-flex">
-                <div style={numdivStyle}>
+                <div style={priceDivStyle}>
                   <select
                     className="form-select"
                     style={{
                       borderStyle: "none",
+                      fontSize:"10px",
                       width: isMobile ? "100%" : "auto",
                     }}
                     aria-label="Default select example"
@@ -551,7 +583,7 @@ export default function Step9({ formData, setFormData }) {
                   </select>
                 </div>
 
-                <div style={numdivStyle}>
+                <div style={priceDivStyle2}>
                   <input
                     type="number"
                     style={numberContStyle}
@@ -561,7 +593,7 @@ export default function Step9({ formData, setFormData }) {
 
                   <select
                     className="form-select"
-                    style={{ borderStyle: "none" }}
+                    style={{ borderStyle: "none" ,  fontSize:"10px", }}
                     aria-label="Default select example"
                     onChange={handleCurrencyChange}
                     value={formData.calendar.price.currency}
@@ -580,7 +612,7 @@ export default function Step9({ formData, setFormData }) {
                   color: "white",
                   marginRight: "1%",
                   marginLeft: isMobile ? "auto" : "",
-                  width: isMobile ? "90%" : "75%",
+                  width: isMobile ? "90%" : "300px   ",
                   borderRadius: isMobile ? "30px" : "30px",
                   padding: isMobile ? "2%" : "",
                   marginTop: "5%",

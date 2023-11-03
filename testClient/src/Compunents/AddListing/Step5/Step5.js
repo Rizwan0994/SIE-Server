@@ -10,10 +10,7 @@ import useNumberInput from "../Custom/InputNumber";
 import Step4mb from "../svgs/step4mb.svg";
 import { isMatch } from "date-fns";
 
-
-
 export default function Step5({ formData, setFormData }) {
-
   const isMobile = useMediaQuery({ maxWidth: 576 });
   const isExtended = useMediaQuery({ minWidth: 1600 });
   const isTablet = useMediaQuery({ minWidth: 577, maxWidth: 768 });
@@ -21,17 +18,50 @@ export default function Step5({ formData, setFormData }) {
   const islaptop_isTablet = useMediaQuery({ minWidth: 577, maxWidth: 990 });
 
   const container = {
-    height: "85vh",
-    padding:isMobile?"3%": isTablet?"3%":""  };
+    height: isMobile?"":isTablet?"":"86vh",
+    padding: isMobile ? "3%" : isTablet ? "3%" : "",
+  };
 
   const HeadingStyle = {
     fontSize: "20px",
     fontWeight: "600",
     fontFamily: "Open Sans",
-    paddingBottom:isTablet?"2%":""
+    paddingBottom: isTablet ? "2%" : "",
+  };
+  const row1Style = {
+    width: isMobile ? "" : "218px",
+    height: isMobile ? "" : "45px",
+    border: isMobile?"": "#666666 solid 0.5px",
+    fontSize: "10px",
   };
 
-  const numdivStyle = {
+  const addAnotherStyle = {
+      width: isMobile ? "" : "155px",
+      height: isMobile ? "" : "45px",
+      padding: isMobile
+        ? "3% 2% 3% 7%"
+        : isTablet
+        ? "4% 2% 4% 7%"
+        : "4%",
+      border: "#BEBEBE solid 1px",
+      borderRadius: "6px",
+      marginTop: "5%",
+      minWidth: isMobile ? "" : isTablet ? "" : "152px",
+    
+  };
+
+  const rangeStyle = {
+    border: isMobile?"": "#666666 solid 0.5px",
+     width: isMobile?"": "185px",
+     height:isMobile?"":"45px",
+     padding:isMobile?"":isTablet?"4%" : isLaptop?"2%":"2%",
+     borderRadius:isMobile? "":"6px",
+     display:isMobile?"flex":"flex",
+     margin:isMobile?"10px 5px":isTablet?"":"5% 0%" ,
+     fontSize: "10px",
+     alignItems:isMobile?"":"center"
+   };
+const numdivStyle = {
     display: "flex",
     borderRadius: "8px",
     alignItems: "center",
@@ -52,8 +82,7 @@ export default function Step5({ formData, setFormData }) {
     borderRight: "1px solid rgb(186 185 185)",
   };
 
-
-  console.log(formData)
+  console.log(formData);
   const handleMarinaChange = (event) => {
     setFormData((prevData) => ({
       ...prevData,
@@ -75,36 +104,46 @@ export default function Step5({ formData, setFormData }) {
   };
 
   return (
-    <div style={container}>
+    <div
+      className={`container${islaptop_isTablet ? "-fluid" : ""}`}
+      style={container}
+    >
       <div
         className="row justify-content-center"
-        style={{ marginBottom: "2%" }}
+        style={{ marginBottom: "2%", width: "99%" }}
       >
-        <div className="col-12 col-sm-12 col-md-10 col-lg-8" style={{ marginTop: "3%" }}>
-        <img src={isMobile?Step4mb:step4} width="100%" alt="" />
+        <div
+          className="col-12 col-sm-12 col-md-10 col-lg-8"
+          style={{ marginTop: "3%" }}
+        >
+          <img src={isMobile ? Step4mb : step4} width="100%" alt="" />
         </div>
       </div>
 
-      <div className="row justify-content-center d-flex  d-lg-flex">
-        <div className="col-12 col-sm-12 col-md-3 col-lg-3 " style={{display:isTablet?"flex":"" ,marginTop:isMobile?"":isTablet?"2%":""}}>
+      <div
+        className="row justify-content-center d-flex  d-lg-flex"
+        style={{ width: "99%" }}
+      >
+        <div
+          className="col-12 col-sm-12 col-md-3 col-lg-3 justify-content-sm-around "
+          style={{
+            display: isTablet ? "flex" : "",
+            marginTop: isMobile ? "" : isTablet ? "2%" : "",
+          }}
+        >
           <div style={{ width: isMobile ? "" : isTablet ? "fit-content" : "" }}>
             <h4>Marina</h4>
-             <Form.Control
-        size="lg"
-        type="text"
-        placeholder="Agios Georgios, Corfu"
-        onChange={handleMarinaChange}
-        value={formData.location.marina}
-      />
+            <Form.Control
+              style={row1Style}
+              size="lg"
+              type="text"
+              placeholder="Agios Georgios, Corfu"
+              onChange={handleMarinaChange}
+              value={formData.location.marina}
+            />
 
             <div
-              style={{
-                width:isTablet?"60%": isMobile?"":"50%",
-                padding:isMobile?"3% 2% 3% 7%": isTablet?"4% 2% 4% 7%":"4%" ,
-                border: "#BEBEBE solid 1px",
-                borderRadius: "6px",
-                marginTop: "5%",
-              }}
+              style={addAnotherStyle}
             >
               <span
                 style={{
@@ -116,37 +155,42 @@ export default function Step5({ formData, setFormData }) {
                 }}
               >
                 Add another marina{" "}
-                <AiOutlinePlus style={{ marginLeft:isMobile?"auto":isTablet?"5%":"auto", marginTop:isMobile?"1%":"2%" }} />{" "}
+                <AiOutlinePlus
+                  style={{
+                    marginLeft: isMobile ? "auto" : isTablet ? "5%" : "auto",
+                    marginTop: isMobile ? "1%" : "2%",
+                  }}
+                />{" "}
               </span>
             </div>
           </div>
-          {isMobile?(<></>):(<></>)}
+          {isMobile ? <></> : <></>}
           <hr
-        style={{
-          backgroundColor: "#CCCCCC",
-          marginLeft: isMobile?"":"10%",
-          margin:"5% 0%"
-        }}
-      />
-      
-          <div style={{ width: isMobile ? "" : isTablet ? "fit-content" : "" ,marginLeft:isTablet?"2%":"", marginTop:isMobile?"2%":""}}>
+            style={{
+              backgroundColor: "#CCCCCC",
+              marginLeft: isMobile ? "" : "10%",
+              margin: isMobile ? "" : "5% 0%",
+            }}
+          />
+
+          <div
+            style={{
+              width: isMobile ? "" : isTablet ? "fit-content" : "",
+              marginLeft: isTablet ? "2%" : "",
+              marginTop: isMobile ? "2%" : "",
+            }}
+          >
             <h4 className="" style={HeadingStyle}>
               Cruising Range
             </h4>
-            <div style={numdivStyle}>
-            <input
-          type="number"
-          style={numberContStyle}
-          onChange={handleCruisingRangeChange}
-          value={formData.location.cruisingRange}
-        />
-              <div
-                style={{
-                  borderRight: "1px solid rgb(186 185 185)",
-                  height: "100%",
-                  marginLeft: isMobile ? "30px" : "",
-                }}
-              ></div>
+            <div style={rangeStyle}>
+              <input
+                type="number"
+                style={numberContStyle}
+                onChange={handleCruisingRangeChange}
+                value={formData.location.cruisingRange}
+              />
+             
               <div style={{ marginLeft: isMobile ? "auto" : "20px" }}>
                 <span
                   style={{
@@ -161,8 +205,20 @@ export default function Step5({ formData, setFormData }) {
             </div>
           </div>
         </div>
-        <div className="col-12 col-sm-12 col-md-6 col-lg-6 " style={{ marginTop:isMobile?"5%":""}} >
-          <img src={map} alt="" style={{ height: "85%", width:isTablet?"100%":isMobile?"100%": "", marginLeft:isTablet?"": isMobile?"":"29%" ,marginTop:isTablet?"4%":""}} />
+        <div
+          className="col-12 col-sm-12 col-md-6 col-lg-6 "
+          style={{ marginTop: isMobile ? "5%" : "" }}
+        >
+          <img
+            src={map}
+            alt=""
+            style={{
+              height: "85%",
+              width: isTablet ? "100%" : isMobile ? "100%" : "",
+              marginLeft: isTablet ? "" : isMobile ? "" : "29%",
+              marginTop: isTablet ? "4%" : "",
+            }}
+          />
         </div>
       </div>
     </div>

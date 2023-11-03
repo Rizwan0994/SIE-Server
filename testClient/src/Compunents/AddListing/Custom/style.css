@@ -32,3 +32,9 @@ width: 100%;
 
  
 }
+.rdrMonths{
+  align-items: center;
+}
+.rdrCalendarWrapper {
+  width: 80%;
+    }

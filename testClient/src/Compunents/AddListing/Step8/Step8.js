@@ -12,9 +12,7 @@ import RadioInput from "../components/RadioInput";
 import { set } from "date-fns";
 
 // import './step8.css'
-const container = {
-  height: "85vh",
-};
+
 const HeadingStyle = {
   fontSize: "20px",
   fontWeight: "600",
@@ -46,6 +44,10 @@ export default function Step8({ formData, setFormData }) {
   const islaptop_isTablet = useMediaQuery({ minWidth: 577, maxWidth: 990 });
   const isDesktop = useMediaQuery({ minWidth: 990, maxWidth: 1230 });
   const isXL = useMediaQuery({ minWidth: 990, maxWidth: 1230 });
+  const container = {
+    height: isMobile ? "" : isTablet ? "" : "84vh",
+  };
+
   const selectBootStyle = {
     color: "#00BFFF",
     borderStyle: "none",
@@ -64,17 +66,7 @@ export default function Step8({ formData, setFormData }) {
     { value: "withcrew", label: "With Crew" },
     { value: "withoutcrew", label: "Without Crew" },
   ];
-  const discountNumDivStyle = {
-    display: "flex",
-    borderRadius: "8px",
-    alignItems: "center",
-    border: "rgb(186 185 185) solid 1px",
-    width: isMobile ? "100%" : "222px",
-    marginBottom: isMobile ? "2%" : "",
-    padding: "2% 4%",
-    color: "",
-    marginRight: "2%",
-  };
+ 
 
   const numberContStyle = {
     width: isMobile ? "100%" : "60px",
@@ -153,7 +145,6 @@ export default function Step8({ formData, setFormData }) {
     opbookingduration[0].value
   );
 
-
   const earlybooking = useCustomSelect(opearlybooking, opearlybooking[0].value);
   const lastminute = useCustomSelect(oplastminute, oplastminute[0].value);
 
@@ -167,13 +158,9 @@ export default function Step8({ formData, setFormData }) {
 
   const [dayuse, setDayUse] = useState("10%");
 
-
-
   const handleSelectChange = (event) => {
     setSelectedValue(event.target.value);
   };
-
-
 
   const handleCharterTypeChange = (event) => {
     const value = event.target.value;
@@ -300,7 +287,7 @@ export default function Step8({ formData, setFormData }) {
       formData.pricing.discounts.bookingDuration.map((option, index) => {
         if (index === 2) {
           // Assuming "2 weeks" corresponds to the third element in bookingDuration
-          return { twoweeks:  value }; // Directly return the selected value
+          return { twoweeks: value }; // Directly return the selected value
         }
         return option;
       });
@@ -323,7 +310,7 @@ export default function Step8({ formData, setFormData }) {
       formData.pricing.discounts.bookingDuration.map((option, index) => {
         if (index === 3) {
           // Assuming "Monthly" corresponds to the fourth element in bookingDuration
-          return { month:   value }; // Directly return the selected value
+          return { month: value }; // Directly return the selected value
         }
         return option;
       });
@@ -346,7 +333,7 @@ export default function Step8({ formData, setFormData }) {
       (option, index) => {
         if (index === 0) {
           // Assuming "2 months" corresponds to the first element in earlyBooking
-          return {twomonths:    value }; // Directly return the selected value
+          return { twomonths: value }; // Directly return the selected value
         }
         return option;
       }
@@ -370,7 +357,7 @@ export default function Step8({ formData, setFormData }) {
       (option, index) => {
         if (index === 1) {
           // Assuming "4 months" corresponds to the second element in earlyBooking
-          return {fourmonths:     value }; // Directly return the selected value
+          return { fourmonths: value }; // Directly return the selected value
         }
         return option;
       }
@@ -394,7 +381,7 @@ export default function Step8({ formData, setFormData }) {
       (option, index) => {
         if (index === 2) {
           // Assuming "6 months" corresponds to the third element in earlyBooking
-          return {sixmonths:    value }; // Directly return the selected value
+          return { sixmonths: value }; // Directly return the selected value
         }
         return option;
       }
@@ -418,7 +405,7 @@ export default function Step8({ formData, setFormData }) {
       (option, index) => {
         if (index === 3) {
           // Assuming "8 months" corresponds to the fourth element in earlyBooking
-          return {eightmonths: value };
+          return { eightmonths: value };
         }
         return option;
       }
@@ -441,8 +428,7 @@ export default function Step8({ formData, setFormData }) {
     const updatedLastMinute = formData.pricing.discounts.lastMinute.map(
       (option, index) => {
         if (index === 0) {
-          
-          return { days25:  value} 
+          return { days25: value };
         }
         return option;
       }
@@ -466,7 +452,7 @@ export default function Step8({ formData, setFormData }) {
       (option, index) => {
         if (index === 2) {
           // Assuming "15 days" corresponds to the third element in lastMinute
-          return { days15 : value}  // Directly return the selected value
+          return { days15: value }; // Directly return the selected value
         }
         return option;
       }
@@ -490,7 +476,7 @@ export default function Step8({ formData, setFormData }) {
       (option, index) => {
         if (index === 1) {
           // Assuming "8 days" corresponds to the second element in lastMinute
-          return { days8: value} // Directly return the selected value
+          return { days8: value }; // Directly return the selected value
         }
         return option;
       }
@@ -513,8 +499,7 @@ export default function Step8({ formData, setFormData }) {
     const updatedLastMinute = formData.pricing.discounts.lastMinute.map(
       (option, index) => {
         if (index === 3) {
-         
-          return { days3:  value}  
+          return { days3: value };
         }
         return option;
       }
@@ -532,11 +517,78 @@ export default function Step8({ formData, setFormData }) {
     }));
   };
 
-
- 
-
   // Function to update the form data with the charges
+  const charterStyle = {
+    width: isMobile ? "" : "156px",
+    height: isMobile ? "" : "45px",
+    fontSize: "10px",
+    // width: isMobile ? "" : "fit-content",
+    border: "rgb(186 185 185) solid 0.5px",
+    display: "flex",
+    borderRadius: "5px",
+    padding: isMobile ? "3%" : "2%",
+    alignItems: isMobile ? "" : "center",
+    marginBottom: isMobile ? "2%" : "",
+  };
+
+  const basePriceStyle = {
+    width: isMobile ? "" : "258px",
+    height: isMobile ? "" : "45px",
+    fontSize: "10px",
+    // width: isMobile ? "" : "fit-content",
+    border: "rgb(186 185 185) solid 0.5px",
+    display: "flex",
+    borderRadius: "5px",
+    padding: isMobile ? "3%" : "2%",
+    alignItems: isMobile ? "" : "center",
+    marginBottom: isMobile ? "2%" : "",
+    fontSize:"10px"
+  };
+
+  const smartPriceStyle = {
+    width: isMobile ? "" : "118px",
+    height: isMobile ? "" : "45px",
+    fontSize: "10px",
   
+    border: "rgb(186 185 185) solid 0.5px",
+    display: "flex",
+    borderRadius: "5px",
+    padding: isMobile ? "3%" : "2%",
+    alignItems: isMobile ? "" : "center",
+    marginBottom: isMobile ? "2%" : "",
+    fontSize:"10px"
+  };
+
+  const seasonalPriceStyle = {
+    width: isMobile ? "" : "108px",
+    height: isMobile ? "" : "45px",
+    fontSize: "10px",
+  whiteSpace:"nowrap",
+    border: "rgb(186 185 185) solid 0.5px",
+    display: "flex",
+    borderRadius: "5px",
+    padding: isMobile ? "3%" : "2%",
+    alignItems: isMobile ? "" : "center",
+    marginBottom: isMobile ? "2%" : "",
+    fontSize:"10px"
+  };
+
+  const discountDivsStyle = {
+    width: isMobile ? "" : "170px",
+    height: isMobile ? "" : "45px",
+    fontSize: "10px",
+  whiteSpace:"nowrap",
+    border: "rgb(186 185 185) solid 0.5px",
+    display: "flex",
+    borderRadius: "5px",
+    padding: isMobile ? "3%" : "2%",
+    alignItems: isMobile ? "" : "center",
+    marginBottom: isMobile ? "2%" : "",
+    fontSize:"10px",
+    alignItems: "center",
+    marginRight: "2%",
+  };
+
 
 
 
@@ -569,7 +621,7 @@ export default function Step8({ formData, setFormData }) {
               : isMobile
               ? ""
               : "9%",
-            marginBottom: "3%",
+            marginBottom:isMobile?"3%": isTablet?"2%":"1%",
             marginTop: isTablet ? "3%" : "",
           }}
         >
@@ -581,15 +633,7 @@ export default function Step8({ formData, setFormData }) {
               Charter Type
             </h4>
             <div
-              style={{
-                display: "flex",
-                borderRadius: "8px",
-                alignItems: "center",
-                border: "rgb(186 185 185) solid 1px",
-                width: isMobile ? "" : "fit-content",
-                padding: isMobile ? "2%" : isTablet ? "4%" : "4%",
-                marginBottom: isMobile ? "2%" : "",
-              }}
+              style={charterStyle}
             >
               <select
                 className="form-select"
@@ -616,7 +660,7 @@ export default function Step8({ formData, setFormData }) {
             <h4 className="pb-2" style={HeadingStyle}>
               Base Price
             </h4>
-            <div style={numdivStyle}>
+            <div style={basePriceStyle}>
               <select
                 className="form-select"
                 style={{
@@ -670,7 +714,7 @@ export default function Step8({ formData, setFormData }) {
             <h4 className="pb-2" style={HeadingStyle}>
               Smart Pricing
             </h4>
-            <div style={numdivStyle}>
+            <div style={smartPriceStyle}>
               <select
                 className="form-select"
                 style={selectBootStyle}
@@ -706,17 +750,7 @@ export default function Step8({ formData, setFormData }) {
               Seasonal Price
             </h4>
             <div
-              style={{
-                width: isTablet ? "60%" : isMobile ? "" : "55%",
-                padding: isMobile
-                  ? "3% 2% 3% 7%"
-                  : isTablet
-                  ? "5% 0% 5% 6%"
-                  : "5% 2% 5% 7%",
-                border: "#BEBEBE solid 1px",
-                borderRadius: "6px",
-                marginTop: isTablet ? "5%" : "",
-              }}
+              style={seasonalPriceStyle}
             >
               <span
                 style={{
@@ -746,7 +780,7 @@ export default function Step8({ formData, setFormData }) {
           ) : (
             <>
               {" "}
-              <hr className="mt-3 mb-3" style={{ width: "85%" }} />
+              <hr className="mt-3 mb-3" style={{ width: "85%" , marginBottom:isTablet?"2%":"1%", }} />
             </>
           )}
         </div>
@@ -763,7 +797,7 @@ export default function Step8({ formData, setFormData }) {
               : isMobile
               ? ""
               : "9%",
-            marginBottom: "3%",
+              marginBottom:isMobile?"3%": isTablet?"2%":"1%",
           }}
         >
           <h4 className="pb-2" style={HeadingStyle}>
@@ -784,7 +818,7 @@ export default function Step8({ formData, setFormData }) {
                 marginTop: "2%",
               }}
             >
-              <div style={discountNumDivStyle}>
+              <div style={discountDivsStyle}>
                 <CustomSelect
                   label="Day use"
                   options={[
@@ -802,7 +836,7 @@ export default function Step8({ formData, setFormData }) {
                 />
               </div>
               {/*  */}
-              <div style={discountNumDivStyle}>
+              <div style={discountDivsStyle}>
                 <CustomSelect
                   label="Weekly"
                   options={[
@@ -828,7 +862,7 @@ export default function Step8({ formData, setFormData }) {
                 marginTop: "2%",
               }}
             >
-              <div style={discountNumDivStyle}>
+              <div style={discountDivsStyle}>
                 <CustomSelect
                   label="2 weeks"
                   options={[
@@ -846,7 +880,7 @@ export default function Step8({ formData, setFormData }) {
                 />
               </div>
               {/*  */}
-              <div style={discountNumDivStyle}>
+              <div style={discountDivsStyle}>
                 <CustomSelect
                   label="Monthly"
                   options={[
@@ -880,7 +914,7 @@ export default function Step8({ formData, setFormData }) {
                 marginTop: "2%",
               }}
             >
-              <div style={discountNumDivStyle}>
+              <div style={discountDivsStyle}>
                 <CustomSelect
                   label="2 months"
                   options={[
@@ -898,7 +932,7 @@ export default function Step8({ formData, setFormData }) {
                 />
               </div>
               {/*  */}
-              <div style={discountNumDivStyle}>
+              <div style={discountDivsStyle}>
                 <CustomSelect
                   label="4 months"
                   options={[
@@ -924,7 +958,7 @@ export default function Step8({ formData, setFormData }) {
                 marginTop: "2%",
               }}
             >
-              <div style={discountNumDivStyle}>
+              <div style={discountDivsStyle}>
                 <CustomSelect
                   label="6 months"
                   options={[
@@ -942,7 +976,7 @@ export default function Step8({ formData, setFormData }) {
                 />
               </div>
               {/*  */}
-              <div style={discountNumDivStyle}>
+              <div style={discountDivsStyle}>
                 <CustomSelect
                   label="8 months"
                   options={[
@@ -976,7 +1010,7 @@ export default function Step8({ formData, setFormData }) {
                 marginTop: "2%",
               }}
             >
-              <div style={discountNumDivStyle}>
+              <div style={discountDivsStyle}>
                 <CustomSelect
                   label="25 days"
                   options={[
@@ -994,7 +1028,7 @@ export default function Step8({ formData, setFormData }) {
                 />
               </div>
               {/*  */}
-              <div style={discountNumDivStyle}>
+              <div style={discountDivsStyle}>
                 <CustomSelect
                   label="15 days"
                   options={[
@@ -1020,7 +1054,7 @@ export default function Step8({ formData, setFormData }) {
                 marginTop: "2%",
               }}
             >
-              <div style={discountNumDivStyle}>
+              <div style={discountDivsStyle}>
                 <CustomSelect
                   label="8 days"
                   options={[
@@ -1036,7 +1070,7 @@ export default function Step8({ formData, setFormData }) {
                 />
               </div>
               {/*  */}
-              <div style={discountNumDivStyle}>
+              <div style={discountDivsStyle}>
                 <CustomSelect
                   label="3 days"
                   options={[
@@ -1077,7 +1111,7 @@ export default function Step8({ formData, setFormData }) {
               : isMobile
               ? ""
               : "9%",
-            marginBottom: "3%",
+              marginBottom:isMobile?"3%": "2%",
           }}
         >
           <div className="col-12 col-sm-6 col-lg-4">
@@ -1085,11 +1119,27 @@ export default function Step8({ formData, setFormData }) {
               Additional Charges
             </h4>
 
-            <RadioInput formData={formData}  setFormData={setFormData} label_value="fuel_and_mooring_fees"  label="Fuel and mooring fees/per day" obj={"additionalCharges"} />
-        <RadioInput   formData={formData}  setFormData={setFormData} label_value="different_marina_fee" label="Different marina fee" obj={"additionalCharges"}   />
-        <RadioInput  formData={formData}  setFormData={setFormData} label_value="allowance_fee" label="Allowance fee" obj={"additionalCharges"}  />
-
-            
+            <RadioInput
+              formData={formData}
+              setFormData={setFormData}
+              label_value="fuel_and_mooring_fees"
+              label="Fuel and mooring fees/per day"
+              obj={"additionalCharges"}
+            />
+            <RadioInput
+              formData={formData}
+              setFormData={setFormData}
+              label_value="different_marina_fee"
+              label="Different marina fee"
+              obj={"additionalCharges"}
+            />
+            <RadioInput
+              formData={formData}
+              setFormData={setFormData}
+              label_value="allowance_fee"
+              label="Allowance fee"
+              obj={"additionalCharges"}
+            />
           </div>
           {isMobile ? (
             <>
@@ -1099,16 +1149,34 @@ export default function Step8({ formData, setFormData }) {
           ) : (
             <>
               {" "}
-              <hr className="mt-3 mb-3" style={{ width: "85%" }} />
+              {/* <hr className="mt-3 mb-3" style={{ width: "85%" }} /> */}
             </>
           )}
           <div className=" col-sm-6 col-lg-4">
             <h4 className="pb-2" style={HeadingStyle}>
               Optional Charges
             </h4>
-            <RadioInput  formData={formData}  setFormData={setFormData} label_value="cleaning_fee" label="Cleaning fee" obj={"optionalCharges"} />
-        <RadioInput   formData={formData}  setFormData={setFormData} label_value="gratuity" label="Gratuity"obj={"optionalCharges"}/>
-        <RadioInput  formData={formData}  setFormData={setFormData} label_value="security_deposit"  label="Security deposit"obj={"optionalCharges"} />
+            <RadioInput
+              formData={formData}
+              setFormData={setFormData}
+              label_value="cleaning_fee"
+              label="Cleaning fee"
+              obj={"optionalCharges"}
+            />
+            <RadioInput
+              formData={formData}
+              setFormData={setFormData}
+              label_value="gratuity"
+              label="Gratuity"
+              obj={"optionalCharges"}
+            />
+            <RadioInput
+              formData={formData}
+              setFormData={setFormData}
+              label_value="security_deposit"
+              label="Security deposit"
+              obj={"optionalCharges"}
+            />
           </div>
         </div>
       </div>

@@ -6,6 +6,7 @@ import Boat2 from "../svgs/motor.svg";
 import Boat3 from "../svgs/cat.svg";
 import Boat4 from "../svgs/other.svg";
 import { BsLaptop, BsPlus } from 'react-icons/bs';
+import { AiOutlinePlus } from "react-icons/ai";
 
 import useNumberInput from "../Custom/NumberHook";
 import add from "../svgs/add.svg";
@@ -47,6 +48,22 @@ export default function  Step2({ formData, setFormData }) {
     // margin: "0 8px",
     marginLeft: isMobile?"": isTablet?"auto":"auto"
   };
+
+  const addAnotherStyle = {
+    width: isMobile ? "" : "155px",
+    height: isMobile ? "" : "45px",
+    padding: isMobile
+      ? "2"
+      : isTablet
+      ? "2"
+      : "2%",
+    border: "#BEBEBE solid 1px",
+    borderRadius: "6px",
+    marginTop: "5%",
+    minWidth: isMobile ? "" : isTablet ? "" : "152px",
+  
+};
+
   console.log(formData)
   const [selectedBoatType, setSelectedBoatType] = useState("");
 
@@ -54,33 +71,33 @@ export default function  Step2({ formData, setFormData }) {
     value: sleeping_guests,
     increment: sleeping_guests_inc,
     decrement: sleeping_guests_dec,
-  } = useNumberInput(0);
+  } = useNumberInput(1);
   const {
     value: cruising_guests,
     increment: cruising_guests_inc,
     decrement: cruising_guests_dec,
-  } = useNumberInput(0);
+  } = useNumberInput(1);
   const {
     value: cabins,
     increment: cabins_inc,
     decrement: cabins_dec,
-  } = useNumberInput(0);
+  } = useNumberInput(1);
 
   const {
     value: beds,
     increment: beds_inc,
     decrement: beds_dec,
-  } = useNumberInput(0);
+  } = useNumberInput(1);
   const {
     value: kitchen,
     increment: kitchen_inc,
     decrement: kitchen_dec,
-  } = useNumberInput(0);
+  } = useNumberInput(1);
   const {
     value: bathrooms,
     increment: bathrooms_inc,
     decrement: bathrooms_dec,
-  } = useNumberInput(0);
+  } = useNumberInput(1);
 
   const handleBoatTypeSelection = (value) => {
     setSelectedBoatType(value);
@@ -162,19 +179,23 @@ const updateBathrooms = () => {
 
   const abc = {
     marginTop:"3%",
-   paddingLeft:isMobile?"5%":"%" ,
+   paddingLeft:isMobile?"%":"%" ,
     fontSize: "20px",
     fontWeight: "600",
     fontFamily: "Open Sans",
   }
   const countDivStyle = {
-   border: isMobile?"": "#666666 solid 1px",
-    width: isMobile?"": isTablet?"65%": isLaptop?"45%":"50%",
-    padding:isMobile?"":isTablet?"5% 3% 6% 7%" : isLaptop?"4% 2% 5% 7%":"4% 2% 4% 7%",
-    borderRadius:isMobile? "":"6px",
+   border: isMobile?"": "#666666 solid 0.5px",
+    width: isMobile?"": "120px",
+    height:isMobile?"":"45px",
+    padding:isMobile?"":isTablet?"4%" : isLaptop?"2%":"2%",
+    borderRadius:isMobile? "":"5px",
     display:isMobile?"flex":"flex",
     margin:isMobile?"10px 5px":isTablet?"":"5% 0%"
   };
+
+
+
   const numberStyle = {
     color: "#00BFFF",
     fontWeight: "600",
@@ -183,10 +204,11 @@ const updateBathrooms = () => {
 
   };
   const kichDivStyle = {
-    border: isMobile?"": "#666666 solid 1px",
-     width: isMobile?"": isTablet?"95%":"70%",
-     padding:isMobile?"":isTablet?"8% 3% 8% 7%":"5% 2% 5% 7%",
-     borderRadius:isMobile? "":"6px",
+    border: isMobile?"": "#666666 solid 0.5px",
+    width: isMobile?"": "120px",
+    height:isMobile?"":"45px",
+    padding:isMobile?"":isTablet?"4%" : isLaptop?"2%":"2%",
+     borderRadius:isMobile? "":"5px",
      display:isMobile?"flex":"",
      margin:isMobile?"10px 5px":"",
      display:"flex"
@@ -200,17 +222,18 @@ const updateBathrooms = () => {
   }
   const bedsSelectStyle = {
     border: isMobile?"": "#666666 solid 1px",
-    width: isMobile?"": isTablet? "100%": "85%",
-    padding: isMobile?"": isTablet?"4%":"3% 2% 3% 7%",
-    borderRadius: "6px",
+    width: isMobile?"": isTablet? "218px": "218px",
+    height:isMobile?"":isTablet?"":"45px",
+    padding: isMobile?"": isTablet?"4%":"2%",
+    borderRadius: "5px",
     display: "flex",
     alignItems: "center",
   };
   
   return (
-    <div className={`container${islaptop_isTablet ? '-fluid' : ''}`}>
+    <div className={`container${islaptop_isTablet ? '-fluid' : ''}`} style={{ height: isMobile?"":isTablet?"":"82vh",}}>
       <div className="row justify-content-center">
-        <div className="col-12 col-md-11" style={{ marginTop: "3%" }}>
+        <div className="col-12 col-md-11" style={{ marginTop: "2%" }}>
           <img src={isMobile?Step1mb:Step1} width="100%" alt="" />
         </div>
       </div>
@@ -228,14 +251,14 @@ const updateBathrooms = () => {
           >
             <div
               onClick={() => handleBoatTypeSelection("sailing")}
-              className=" col rounded boat-type"
+              className=" col rounded"
               style={{
                 cursor: "pointer",
                 marginRight: "3%",
                 // width: "55%",
               }}
             >
-              <img width="100%" height="auto" src={Boat1} alt="Boat Type 1" />
+              <img className=" boat-type" width={isMobile?"100%":"70%"} height="auto" src={Boat1} alt="Boat Type 1" />
             </div>
 
             <div
@@ -247,7 +270,7 @@ const updateBathrooms = () => {
                 // width: "55%",
               }}
             >
-              <img width="100%" height="%" src={Boat2} alt="Boat Type 2" />
+              <img className=" boat-type" width={isMobile?"100%":"70%"} height="%" src={Boat2} alt="Boat Type 2" />
             </div>
             </div>
 
@@ -264,7 +287,7 @@ const updateBathrooms = () => {
                 // width: "55%",
               }}
             >
-              <img src={Boat3} alt="Boat Type 3" width="100%" height="%" />
+              <img className=" boat-type" src={Boat3} alt="Boat Type 3" width={isMobile?"100%":"70%"} height="%" />
             </div>
             <div
               onClick={() => handleBoatTypeSelection("other")}
@@ -275,7 +298,7 @@ const updateBathrooms = () => {
                 // width: "55%",
               }}
             >
-              <img src={Boat4} alt="Boat Type 4" width="100%" height="%" />
+              <img className=" boat-type" src={Boat4} alt="Boat Type 4" width={isMobile?"100%":"70%"} height="%" />
             </div>
           </div>
 
@@ -289,7 +312,7 @@ const updateBathrooms = () => {
       <hr
         style={LineStyle}
       />
-      <div className="row  justify-content-sm-center justify-content-md-start" style={{ marginLeft: isMobile?"":isTablet?"":"4%",padding:isMobile?"2%":isTablet?"":"",paddingLeft:isTablet?"5%":"" ,paddingRight:isTablet?"5%":""}}>
+      <div className="row  justify-content-sm-center justify-content-md-start" style={{ marginLeft: isMobile?"":isTablet?"":"4%",padding:isMobile?"2%":isTablet?"0px 0px 0px 5%":""}}>
         <div className="col-12 col-sm-4 " style={{padding: isMobile?"0px":""}}>
           {isMobile? (<></>):(<>  <h4 style={HeadingStyle}>Sleeping guests</h4></>)}
         
@@ -425,7 +448,7 @@ const updateBathrooms = () => {
 
      
      
-      <div className="row justify-content-md-start justify-content-sm-center"  style={{ marginLeft: isMobile?"":isTablet?"":"5%",padding:isMobile?"2%":isTablet?"3%":"" ,marginBottom: "3.4%"  }} >
+      <div className="row justify-content-md-start justify-content-sm-center"  style={{ marginLeft: isMobile?"":isTablet?"":"5%",padding:isMobile?"2%":isTablet?"3%":"" ,marginBottom:isMobile?"":isTablet?"3.4%":"5.4%"  }} >
         <div className="col-12 col-sm-5" style={{padding:"0px"}}>
           {/* <FontAwesomeIcon icon={faChevronDown} />
            */}
@@ -436,8 +459,8 @@ const updateBathrooms = () => {
 
             <select className="dropdown-select" style={{ borderStyle: "none" ,marginLeft:isMobile?"auto":"" }}>
               <option value="option1">select type</option>
-              <option value="option2">Option 2</option>
-              <option value="option3">Option 3</option>
+              <option value="option2">Single</option>
+              <option value="option3">Double</option>
             </select>
             {isMobile? (<></>):(<>  <div style={dividerStyle}></div></>)}
           
@@ -468,9 +491,27 @@ const updateBathrooms = () => {
             </div>
        
           </div>
-          <div style={{width:isMobile?"":isTablet?"60%":"55%",padding: isMobile?"3% 2% 0% 4%":"4% 2% 0% 7%", border: "#BEBEBE solid 1px",borderRadius:"6px",marginTop:"5%"}}>
-              <p style={{fontFamily:"Open Sans",fontWeight:"400"}}>Add new type    <BsPlus style={{fontSize:"18px" , float:"right"}}/> </p>
-          </div>
+          <div
+              style={addAnotherStyle}
+            >
+              <span
+                style={{
+                  fontFamily: "Open Sans",
+                  fontWeight: "400",
+                  display: "flex",
+                  fontSize: "12px",
+                  color: "#333333",
+                }}
+              >
+               Add new type
+                <AiOutlinePlus
+                  style={{
+                    marginLeft: isMobile ? "auto" : isTablet ? "5%" : "auto",
+                    marginTop: isMobile ? "1%" : "2%",
+                  }}
+                />{" "}
+              </span>
+            </div>
         </div>
         {isMobile?(<><hr
        style={{

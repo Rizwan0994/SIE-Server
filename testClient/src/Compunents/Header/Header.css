@@ -37,3 +37,10 @@
     /* background-color: aquamarine; */
     border-style: none;
 }
+
+.show-left {
+    border-style: none;
+    border-radius: 0px;
+    left: -35px !important;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Example of a box shadow */
+  }

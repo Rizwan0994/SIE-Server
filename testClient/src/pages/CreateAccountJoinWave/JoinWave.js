@@ -49,7 +49,7 @@ export default function JoinWave() {
                     >
                       Join the wave!
                     </h2>
-                    <Link to="/adduser">
+                    <Link to="/signup">
                       <Button
                         className="mb-3"
                         style={{

@@ -3,9 +3,7 @@ import step6 from "../svgs/step6.svg";
 import Form from 'react-bootstrap/Form';
 import Step6mb from "../svgs/step6mb.svg";
 import { useMediaQuery } from "react-responsive";
-const container ={
-  height:"85vh"
-}
+
 const HeadingStyle = {
   fontSize: "20px",
   fontWeight: "600",
@@ -20,7 +18,10 @@ export default function Step7({ formData, setFormData }) {
   const islaptop_isTablet = useMediaQuery({ minWidth: 577, maxWidth: 990 });
   const isDesktop = useMediaQuery({minWidth: 990})
 
-
+  const container ={
+    height: isMobile?"":isTablet?"":"86vh",
+  }
+  
   const handleTitleChange = (event) => {
     setFormData((prevData) => ({
       ...prevData,

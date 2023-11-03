@@ -13,7 +13,9 @@ import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import ProfileIcon from "../../images/profileicon.svg";
 import BorderRadiusButton from "../UI/BorderRadiusButton/BorderRadiusButton";
 import { useMediaQuery } from "react-responsive";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
+import profileemoji from "../../images/profileemoji.svg";
+import menuicon from "../../images/menuicon.svg";
 
 const btnStyle = {
   paddingRight: "2%",
@@ -22,33 +24,28 @@ const btnStyle = {
 const Header = () => {
   const navigate = useNavigate();
   const isMobile = useMediaQuery({ maxWidth: 576 });
-     const isTablet = useMediaQuery({ minWidth: 577, maxWidth: 768 });
+  const isTablet = useMediaQuery({ minWidth: 577, maxWidth: 768 });
   const [selectedLanguage, setSelectedLanguage] = useState("English");
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const [selectedCurrency, setSelectedCurrency] = useState({
-      name: "EUR",
-      symbol: "€",
-    });
-    const [isDropdownOpen2, setIsDropdownOpen2] = useState(false);
+  const [selectedCurrency, setSelectedCurrency] = useState({
+    name: "EUR",
+    symbol: "€",
+  });
+  const [isDropdownOpen2, setIsDropdownOpen2] = useState(false);
 
-    const handleCurrencyChange = (currency) => {
-      setSelectedCurrency(currency);
-      setIsDropdownOpen2(false); 
-    };
-
-  const handleLanguageChange = (language) => {
-
-    console.log(language)
-    setSelectedLanguage(language);
-    setIsDropdownOpen(false); 
+  const handleCurrencyChange = (currency) => {
+    setSelectedCurrency(currency);
+    setIsDropdownOpen2(false);
   };
 
-
-
+  const handleLanguageChange = (language) => {
+    console.log(language);
+    setSelectedLanguage(language);
+    setIsDropdownOpen(false);
+  };
 
   const handleLogout = () => {
-   
     // localStorage.removeItem("accessToken");
     // localStorage.removeItem("id");
     // localStorage.removeItem("user");
@@ -56,23 +53,43 @@ const Header = () => {
     // localStorage.removeItem("owner");
     localStorage.clear();
 
-
-    navigate('/')
+    navigate("/");
   };
-
+  const accessToken = localStorage.getItem("accessToken");
   const handleProfileClick = () => {
-    const accessToken = localStorage.getItem("accessToken");
-
     if (!accessToken) {
       // Handle the case where there's no accessToken (user is not authenticated)
       // alert("Please log in to view your profile.");
       // You can also redirect the user to the login page if needed
 
-   navigate('/login')
+      navigate("/login");
     } else {
- 
-      navigate('/profile')
+      navigate("/profile");
     }
+  };
+
+  const handleDropdownItemClick = (item) => {
+    console.log(`Selected: ${item}`);
+    if (item === "Login") {
+      navigate("/login");
+    } else if (item === "Create Account") {
+      navigate("/joinwave");
+    } else if (item === "Help") {
+      navigate("/help");
+    } else if (item === "Add a listing") {
+      navigate("/addlisting");
+    } else if (item === "Trips") {
+      navigate("/trips");
+    } else if (item === "Favourites") {
+      navigate("/fav");
+    } else if (item === "Account") {
+      navigate("/account");
+    }
+  };
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const toggleDropdown = () => {
+    setShowDropdown(!showDropdown);
   };
 
   const user = localStorage.getItem("user");
@@ -87,55 +104,62 @@ const Header = () => {
         bg="white shadow-sm"
         expand="lg"
         className="header"
-        style={{ paddingRight: "1.5%" }}
+        style={{
+          paddingRight: "1.5%",
+          paddingTop: isMobile ? "" : isTablet ? "" : "",
+        }}
       >
-        <Container fluid style={{height:"65px"}}>
-          <Navbar.Brand href="#" className="logo" style={{ marginLeft:isMobile ?"34%":"" }}>
-          <Link   to="/" style={{ textDecoration: "none", color: "#333333" , marginLeft:isMobile ?"":"10%" }}>  <img src={isMobile?mobilelogo:logo} alt="Logo" height="30" />
-             </Link>
-            
+        <Container
+          fluid
+          style={{
+            height: "65px",
+            marginTop: isMobile ? "" : "",
+            marginBottom: isMobile ? "" : "",
+          }}
+        >
+          <Navbar.Brand
+            href="#"
+            className="logo"
+            style={{ marginLeft: isMobile ? "38%" : "" }}
+          >
+            <Link
+              to="/"
+              style={{
+                textDecoration: "none",
+                color: "#333333",
+                marginLeft: isMobile ? "" : "10%",
+              }}
+            >
+              {" "}
+              <img src={isMobile ? mobilelogo : logo} alt="Logo" height="30" />
+            </Link>
           </Navbar.Brand>
 
-          <div style={{height:"65px"}}>
+          <div style={{ height: "65px" }}>
             <Navbar
               id="basic-navbar-nav"
               className="float-start"
-              style={{ marginTop: "1%", marginBottom: "1%" ,padding:"0px"}}
+              style={{ marginTop: "1%", marginBottom: "1%", padding: "0px" }}
             >
-              <Nav className=" d-none d-sm-flex" style={{ marginRight: "2%" }}>
-                {user === "boatowner" && (
-                  <Link to="/addboat">
-                    <Button
-                      variant=" rounded-pill"
-                      className="bg-white "
-                      style={{
-                        color: "#00BFFF",
-                        borderColor: "#00BFFF",
-                        width: "150px",
-                      }}
-                    >
-                      Create a Listing
-                    </Button>
-                  </Link>
-                )}
-              </Nav>
-              <Nav className=" d-none d-sm-flex">
-                {user ? (
+              <Nav className=" d-none d-sm-flex" style={{marginRight:isMobile?"":"19px" }}>
+                <Link to="/addlisting">
                   <Button
                     variant=" rounded-pill"
-                    className="bg-white"
-                    style={{ color: "#00BFFF", borderColor: "#00BFFF" }}
-                    onClick={handleLogout}
+                    className="bg-white "
+                    style={{
+                      width:"132px",
+                      fontSize:"14px",
+                      height:"40px",
+                      color: "#00BFFF",
+                      borderColor: "#00BFFF",
+                      width: "150px",
+                    }}
                   >
-                    Logout
+                    Create a Listing
                   </Button>
-                ) : (
-                  // If 'user' is not available, show the Login button
-                  <Link to="/login" style={{ color: "#00BFFF" }}>
-                    <BorderRadiusButton name="Login" />
-                  </Link>
-                )}
+                </Link>
               </Nav>
+
               <Nav className="  d-none d-sm-flex">
                 <Dropdown
                   show={isDropdownOpen}
@@ -146,9 +170,11 @@ const Header = () => {
                     id="language-dropdown"
                     style={{
                       color: "#666666",
-                      paddingRight: "2%",
-                      paddingTop: "9%",
+                      // paddingRight: "2%",
+                      // paddingTop: "9%",
                       cursor: "pointer",
+                      padding: isMobile ? "" : "0px",
+                      marginRight: isMobile ? "" : "19px",
                     }}
                   >
                     <span onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
@@ -156,7 +182,7 @@ const Header = () => {
                       <BsChevronDown style={{ fontSize: "15px" }} />
                     </span>
                   </Dropdown.Toggle>
-                  <Dropdown.Menu>
+                  <Dropdown.Menu style={{}}>
                     <Dropdown.Item
                       onClick={() => handleLanguageChange("English")}
                     >
@@ -184,30 +210,36 @@ const Header = () => {
                     id="currency-dropdown"
                     style={{
                       color: "#666666",
-                      paddingRight: "2%",
-                      paddingTop: "10%",
+                      padding: isMobile ? "" : "0px",
+                      marginRight: isMobile ? "" : "19px",
+                      // paddingRight: "2%",
+                      // paddingTop: "10%",
                       cursor: "pointer",
                     }}
                   >
                     <span onClick={() => setIsDropdownOpen2(!isDropdownOpen2)}>
-                    {selectedCurrency.symbol} {selectedCurrency.name}{" "}
+                      {selectedCurrency.symbol} {selectedCurrency.name}{" "}
                       <BsChevronDown style={{ fontSize: "15px" }} />
                     </span>
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
                     <Dropdown.Item
+                      style={{
+                        padding: isMobile ? "" : "0px",
+                        marginRight: isMobile ? "" : "19px",
+                      }}
                       onClick={() =>
                         handleCurrencyChange({ name: "EUR", symbol: " €" })
                       }
                     >
-                       (€)EUR
+                      (€)EUR
                     </Dropdown.Item>
                     <Dropdown.Item
                       onClick={() =>
                         handleCurrencyChange({ name: "USD", symbol: "$" })
                       }
                     >
-                       ($)USD
+                      ($)USD
                     </Dropdown.Item>
                     <Dropdown.Item
                       onClick={() =>
@@ -223,11 +255,97 @@ const Header = () => {
                 {/*  */}
               </Nav>
 
-              <Navbar.Brand href="#" className=" ">
+              <Navbar.Brand
+                className=" shadow-sm d-flex"
+                style={{ padding: "10px", borderRadius: "25px" ,marginRight:isTablet?"-15px":"" }}
+              >
                 {/* <Link  > */}
-                  <span style={{ color: "gray" }} onClick={handleProfileClick}>
-                    <img src={ProfileIcon} alt="" />
-                  </span>
+                <span style={{ color: "gray", cursor: "pointer" }}>
+                  <Dropdown show={showDropdown} onToggle={toggleDropdown}>
+                    <Dropdown.Toggle
+                      variant="none"
+                      id="dropdown-custom-components"
+                      style={{ border: "none", background: "none" }}
+                    >
+                      <img src={menuicon} alt="" />
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu className={showDropdown ? "show-left" : ""}>
+                      {accessToken ? (
+                        <>
+                          <Dropdown.Item
+                            onClick={() => handleDropdownItemClick("Messages")}
+                          >
+                            Messages
+                          </Dropdown.Item>
+                          <Dropdown.Item
+                            onClick={() => handleDropdownItemClick("Trips")}
+                          >
+                            Trips
+                          </Dropdown.Item>
+                          <Dropdown.Item
+                            onClick={() =>
+                              handleDropdownItemClick("Favourites")
+                            }
+                          >
+                            Favourites
+                          </Dropdown.Item>
+                          <Dropdown.Item
+                            onClick={() => handleDropdownItemClick("Account")}
+                          >
+                            Account
+                          </Dropdown.Item>
+                          <Dropdown.Item
+                            onClick={() =>
+                              handleDropdownItemClick("Add a listing")
+                            }
+                          >
+                            Add a listing
+                          </Dropdown.Item>
+                          <Dropdown.Item
+                            onClick={() => handleDropdownItemClick("Help")}
+                          >
+                            Help
+                          </Dropdown.Item>
+                          <Dropdown.Item onClick={handleLogout}>
+                            Logout
+                          </Dropdown.Item>
+                        </>
+                      ) : (
+                        <>
+                          <Dropdown.Item
+                            onClick={() => handleDropdownItemClick("Login")}
+                          >
+                            Login
+                          </Dropdown.Item>
+                          <Dropdown.Item
+                            onClick={() =>
+                              handleDropdownItemClick("Create Account")
+                            }
+                          >
+                            Create Account
+                          </Dropdown.Item>
+                          <Dropdown.Item
+                            onClick={() => handleDropdownItemClick("Help")}
+                          >
+                            Help
+                          </Dropdown.Item>
+                        </>
+                      )}
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </span>
+                <span
+                  style={{
+                    color: "gray",
+                    marginLeft: "10px",
+                    cursor: "pointer",
+                  }}
+                  onClick={handleProfileClick}
+                >
+                  {/* <img src={ProfileIcon} alt="" /> */}
+                  <img src={profileemoji} alt="" />
+                </span>
                 {/* </Link> */}
               </Navbar.Brand>
             </Navbar>
