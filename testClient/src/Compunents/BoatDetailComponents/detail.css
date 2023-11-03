@@ -1,0 +1,44 @@
+* {
+    box-sizing: border-box;
+}
+
+.location {
+    padding: 10px 0 0 ;
+    display: flex;
+    gap: 30px;
+    /* margin-bottom: 3%; */
+}
+
+.location .content h3 {
+    margin-top: 10px !important;
+}
+
+.location img {
+    height: 50px;
+    width: 40px;
+}
+
+.location p {
+    max-width: 70%;
+}
+
+.set-color-blue {
+    color: rgb(22, 115, 197);
+}
+
+.set-font-size-15 {
+    font-size: 15px;
+}
+
+.verticle-line {
+    display: block;
+    width: 1px;
+    height: 40px;
+    margin-top: 25px;
+    background-color: #c9c9c9;
+}
+
+.img-line {
+    display: grid;
+    justify-items: center;
+}

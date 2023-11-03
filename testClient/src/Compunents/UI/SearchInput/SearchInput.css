@@ -1,0 +1,33 @@
+.custom-input-group {
+    display: inline-flex;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    min-width: 100%;
+
+}
+
+.custom-input-group .input-group-prepend,
+.custom-input-group .input-group-append {
+    background-color: #ffffff;
+    border: none;
+
+
+}
+
+
+.custom-input-group .input-group-text {
+    background-color: #ffffff;
+    ;
+    border: none;
+    padding: 10px;
+}
+
+.custom-input-group .input-group-text svg {
+    font-size: 1.25em;
+}
+
+.custom-input-group .form-control {
+    border: none;
+    border-radius: 0px;
+    
+}

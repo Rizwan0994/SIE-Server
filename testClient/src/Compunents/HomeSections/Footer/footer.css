@@ -1,0 +1,12 @@
+.custom-input {
+    border-radius: 20px 20px 20px 20px !important;
+}
+
+.custom-button {
+    border-radius: 20px 20px 20px 20px !important;
+}
+
+
+#specific-input::placeholder {
+    color: aliceblue;
+}

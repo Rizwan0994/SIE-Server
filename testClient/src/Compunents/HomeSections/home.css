@@ -1,0 +1,24 @@
+.banner-container {
+  background-color: #00BFFF;
+  height: 85vh;
+  width: 100%;
+  min-width: 1200px;
+  min-height: 550px;
+}
+
+/* Media query for tablet screens (max-height: 672px) */
+@media (max-width: 840px) {
+    .banner-container {
+        height: 672px;
+        width: 840px;
+        min-height: 650px;
+    }
+}
+
+/* Media query for mobile screens (max-height: 233px) */
+@media (max-width: 360px) {
+    .banner-container {
+        height: 233px;
+        width: 360px;
+    }
+}

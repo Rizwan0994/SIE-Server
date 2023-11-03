@@ -1,0 +1,21 @@
+.boat-type {
+    border: 1px solid transparent;
+    /* Initially transparent border */
+    transition: border-color 0.3s ease;
+    /* Transition effect for the border color change */
+}
+
+.boat-type:hover {
+    border-color: #00BFFF;
+    /* Change border color on hover */
+}
+
+
+.modal-backdrop.show {
+    backdrop-filter: blur(5px); /* Adjust the blur intensity as needed */
+    background-color: rgba(0, 0, 0, 0.6); /* Adjust the background color and opacity as needed */
+    width: 100%; /* Set the desired width for the backdrop */
+    height: 100%; /* Set the desired height for the backdrop */
+    /* top: 10%; 
+    left: 10%;  */
+}

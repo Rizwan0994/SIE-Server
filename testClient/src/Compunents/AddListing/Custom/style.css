@@ -1,0 +1,34 @@
+.year-select .react-select__placeholder {
+    color: #999; /* Customize the color as needed */
+  }
+
+  .MuiInput-root {
+    border: none !important;
+    border: black solid !important;
+  }
+
+
+
+
+  /* Add custom styles to the TimePicker */
+.custom-timepicker .btn {
+  background-image: none; /* Remove the default icon */
+}
+
+.custom-timepicker .btn::after {
+  content: '\f078'; /* Unicode representation of a down arrow (e.g., Font Awesome) */
+  font-family: 'Font Awesome'; /* Replace with your icon library */
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+}
+
+@media (max-width: 576px) {
+  /* Adjust styles for smaller screens */
+  .rdrCalendarWrapper {
+width: 100%;
+  }
+
+ 
+}

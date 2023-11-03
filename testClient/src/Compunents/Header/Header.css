@@ -1,0 +1,39 @@
+
+
+.white-button {
+    background-color: white;
+    color: blue;
+    border: 1px solid blue;
+}
+
+.brand-icon,
+.toggle-icon {
+    margin-right: 0;
+    border-radius: '20px';
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.toggle-icon {
+    margin-left: 0;
+}
+
+.user-icon {
+    border-radius: '20px';
+
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    margin-left: 0;
+}
+
+.dropdown-toggle::after {
+    display: none !important;
+}
+
+#language-dropdown:focus {
+    /* background-color: aquamarine; */
+    border-style: none;
+}
+
+#currency-dropdown:focus {
+    /* background-color: aquamarine; */
+    border-style: none;
+}

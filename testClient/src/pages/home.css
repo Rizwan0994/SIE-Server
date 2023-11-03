@@ -1,0 +1,62 @@
+.banner-container {
+    background-color: #00BFFF;
+    height: 90vh;
+
+    min-height: 400px;
+}
+
+/* Media query for tablet screens (max-height: 672px) */
+@media (max-width: 840px) {
+    .banner-container {
+        height: 672px;
+        width: 840px;
+        min-height: 650px;
+    }
+}
+
+/* Media query for mobile screens (max-height: 233px) */
+@media (max-width: 360px) {
+    .banner-container {
+        height: 233px;
+        width: 360px;
+    }
+}
+
+
+
+
+
+/* HowItWorks.css */
+
+/* Styles for mobile view */
+@media (max-width: 767px) {
+    .carousel-container {
+        display: block;
+        text-align: center;
+    }
+
+    .carousel-card {
+        margin-bottom: 20px;
+        /* Add appropriate margin for spacing */
+    }
+
+    .dot-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+        /* Add appropriate margin for spacing */
+    }
+
+    .dot {
+        width: 12px;
+        height: 12px;
+        background-color: #ccc;
+        border-radius: 50%;
+        margin: 0 5px;
+        cursor: pointer;
+    }
+
+    .dot.active {
+        background-color: #00BFFF;
+    }
+}
