@@ -22,6 +22,7 @@ const PORT = 443; // Default HTTPS port
 const ConnectDb = require("./config/Db.connect")
 const UserRouter = require("./routes/users.routes");
 const ShipRouter = require("./routes/ships.Routes");
+const ShipBookingRouter = require("./routes/shipsBooking.routes");
 
 
 // neccessary middleware 👍👍👍
@@ -47,6 +48,9 @@ app.use("/api/users", UserRouter)
 
 // All Ships Routes 👍👍👍
 app.use("/api/ships", ShipRouter)
+
+// All Ships Booking Routes 👍👍👍
+app.use("/api/shipsBooking", ShipBookingRouter)
 
 
 
